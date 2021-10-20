@@ -1,0 +1,35 @@
+.recipe_card_container {
+    display: flex;
+    padding: 0;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: 450px;
+    background-color: $second-color;
+    border-radius: 5px;
+    margin-bottom: 50px;
+    img {
+        width: 350px;
+        height: 225px;
+        object-fit: cover;
+        margin: 0;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .recipe_title_infos {
+        margin: 15px 0px 0px;
+        display: flex;
+        padding: 0;
+        margin: 15px 0px 0px;
+        flex-direction: row;
+    }
+    .recipe_name {
+        font-size: .8em;
+        font-weight: bolder;
+    }
+    .recipe_ingredients {
+        overflow: hidden;
+    }
+}
