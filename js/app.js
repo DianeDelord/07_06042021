@@ -95,7 +95,7 @@ const initialDisplay = async() => {
     for (let recipe of recipes) {
         affichage +=
             `<div class="recipe_card_container">
-            <img src="/images/${recipe.photo}" class="recipe_img">
+            <img src="./images/${recipe.photo}" class="recipe_img">
             <div class="recipe_title_infos">
                 <h2 class="recipe_name">${recipe.name}</h2>
                 <img class="clock" src="/images/clock-regular.svg">
