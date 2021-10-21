@@ -5,7 +5,7 @@ const fetchSearch = async() => {
     recipes = await fetch('recipes.json')
         .then(res => res.json())
         .then(res => res.recipes)
-        // console.log(recipes)
+        //console.log(recipes)
         // console.log(recipes[1].photo)
 }
 
@@ -13,7 +13,38 @@ let affichage = ``
 let newRecipe
 const searchDisplay = async() => {
     await fetchSearch();
-    for (let recipe of recipes) {
+    // console.log(search)
+    // console.log(recipes)
+    let ingredientsArray
+    let ingredientsArrayOfEach
+    let matchingRecipe
+
+    function checkObj() {
+        recipes.forEach(function(item) {
+            matchingRecipe = item
+            ingredientsArray = item.ingredients // tableau des ingredients pour chaque recette
+
+            ingredientsArray.forEach(function(item) {
+                //console.log(item) // chaque ingredient avec quantité et unité
+                //console.log(item.ingredient) // nom de l'ingredient
+                ingredientsArrayOfEach = item.ingredient
+                if (ingredientsArrayOfEach == search) {
+                    // console.log(ingredientsArrayOfEach);
+                    console.log("---------------- trouvé! ---------------- ")
+                    console.log(matchingRecipe.name);
+                }
+            })
+
+        })
+
+    }
+    checkObj(recipes)
+        //  console.log(checkObj());
+        // console.log(checkObj(recipes), search);
+        //  console.log(search)
+
+
+    /*for (let recipe of recipes) {
         for (let i of recipe.ingredients) {
             if (i.ingredient == search) {
                 console.log("j'ai trouvé!")
@@ -45,7 +76,7 @@ const searchDisplay = async() => {
                 resultOfSearch.innerHTML = affichage
             }
         }
-    }
+    }*/
 
 }
 
@@ -53,6 +84,7 @@ inputSearch.addEventListener('input', (e) => {
     if (e.target.value.length >= 4) {
         // console.log(e.target.value)
         search = e.target.value;
+        //console.log(search)
         searchDisplay()
     }
 })
@@ -91,7 +123,10 @@ initialDisplay()
 //resultOfSearch.innerHTML = meals[0]
 
 // ressources utiles //
-//    https://www.youtube.com/watch?v=ETx4QF_k8so
+// https://www.youtube.com/watch?v=ETx4QF_k8so
 // https://www.youtube.com/watch?v=b0dPBK37-M8&t=24s
 // https://www.youtube.com/watch?v=ZCrh59Bvbts
 // https://www.youtube.com/watch?v=6BozpmSjk-Y
+
+// ALGORITHMES
+// https://www.youtube.com/watch?v=U8EJnJAwH1c
