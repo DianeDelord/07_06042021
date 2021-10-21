@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="sass/bootstrap.min.css">
-    <link rel="stylesheet" href="sass/style.css">
+    <link rel="stylesheet" href="./sass/bootstrap.min.css">
+    <link rel="stylesheet" href="./sass/style.css">
     <title>Les petits plats</title>
 </head>
 
@@ -24,50 +24,38 @@
         <input type="text" id="inputSearch" placeholder="Rechercher un ingrédient, un appareil, un ustensile, une recette…">
 
         <!-- dropdown ingredients -->
-        <div id="dropdown-menus">
+        <nav id="menu-deroulant">
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Ingrédients
-    </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </div>
+            <ul>
+                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ingrédients
+                    <ul class="submenu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                    </ul>
+                </li>
+            </ul>
 
             <!-- dropdown appareil -->
-            <div class="btn-group">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Appareil
-    </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </div>
+            <ul>
+                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Appareil
+                    <ul class="submenu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                    </ul>
+                </li>
+            </ul>
 
             <!-- dropdown ustensiles -->
-            <div class="btn-group">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Ustensiles
-    </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </div>
+            <ul>
+                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ustensiles
+                    <ul class="submenu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                    </ul>
+                </li>
+            </ul>
 
-        </div>
+        </nav>
         <!-- résultats de recherche -->
         <div id="resultOfSearch"></div>
 
