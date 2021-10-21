@@ -1,0 +1,37 @@
+@import './utils/variables';
+@import './components/dropdown';
+@import './components/recipe_card';
+#headerInfos {
+    display: none;
+    margin: 15px;
+}
+
+main {
+    margin: 70px;
+}
+
+#headerInfos-img {
+    display: flex;
+    margin: 40px auto;
+    size: 50px;
+}
+
+#resultOfSearch {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-between;
+}
+
+#inputSearch {
+    display: flex;
+    width: 100%;
+    background-color: $second-color;
+    border-color: $second-color;
+    margin: 15px 0px;
+}
+
+#dropdown-menus {
+    margin: 15px 0px;
+}

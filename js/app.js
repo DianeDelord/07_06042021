@@ -1,7 +1,7 @@
 let resultOfSearch = document.getElementById("resultOfSearch")
 let inputSearch = document.getElementById("inputSearch")
 
-const fetchSearch = async() => {
+const fetchRecipes = async() => {
     recipes = await fetch('recipes.json')
         .then(res => res.json())
         .then(res => res.recipes)
@@ -12,107 +12,32 @@ const fetchSearch = async() => {
 let affichage = ``
 let newRecipe
 const searchDisplay = async() => {
-    await fetchSearch();
-    // console.log(search)
-    // console.log(recipes)
+    await fetchRecipes();
     let ingredientsArray
-    let ingredientsArrayOfEach
     let matchingRecipe
+    let arrayOfRecipeBySearch = []
 
-    function checkObj() {
-        recipes.forEach(function(item) {
-            matchingRecipe = item
-            ingredientsArray = item.ingredients // tableau des ingredients pour chaque recette
+    function checkIngredient() {
+        recipes.forEach(function(recipe) {
+            matchingRecipe = recipe
+            ingredientsArray = recipe.ingredients // tableau des ingredients pour chaque recette
 
-            ingredientsArray.forEach(function(item) {
-                //console.log(item) // chaque ingredient avec quantité et unité
-                //console.log(item.ingredient) // nom de l'ingredient
-                ingredientsArrayOfEach = item.ingredient
-                if (ingredientsArrayOfEach == search) {
-                    let arrayOfRecipeBySearch = []
-
-                    // console.log(ingredientsArrayOfEach);
+            ingredientsArray.forEach(function(recipe) {
+                //console.log(recipe) // chaque ingredient avec quantité et unité
+                //console.log(recipe.ingredient) // nom de l'ingredient
+                if (recipe.ingredient == search) {
+                    // console.log(recipe.ingredient);
                     console.log("---------------- trouvé! ---------------- ")
                     console.log(matchingRecipe.name);
                     arrayOfRecipeBySearch.push(matchingRecipe)
-                    console.log(arrayOfRecipeBySearch);
-
-                    // affichage = ``
-                    // resultOfSearch.innerHTML = affichage
+                    console.log(arrayOfRecipeBySearch); // tableau des recettes dont un ingredient correpond à la saisie
                     return arrayOfRecipeBySearch
                 }
-                //function addMatchingRecipe() {
-                // alors afficher les recettes trouvée qui matchent
-                arrayOfRecipeBySearch.forEach(function() {
-                        affichage +=
-                            `<div class="recipe_card_container">
-                <img src="/images/${matchingRecipe.photo}" class="recipe_img">
-                <div class="recipe_title_infos">
-                    <h2 class="recipe_name">${matchingRecipe.name}</h2>
-                    <img class="clock" src="/images/clock-regular.svg">
-                    <p>${matchingRecipe.time} min</p>
-                </div>
-                <div class="howTo">
-                    <div class="recipe_ingredients">`;
-                        // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
-                        matchingRecipe.ingredients.forEach((e) => {
-                            affichage +=
-                                `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
-                        });
-                        affichage += `</div>
-                    <div class="recipe_ingredients_steps">`;
-                        affichage += `<p class="recipe_steps">${matchingRecipe.description}</p> `;
-                        affichage += `</div></div></div>`;
-                        console.log("---------------- construction! ---------------- ")
-                        console.log(arrayOfRecipeBySearch);
-
-                    })
-                    //}
-                    // addMatchingRecipe()
-
             })
         })
     }
+    checkIngredient()
 
-    checkObj(recipes)
-        //  console.log(checkObj());
-        // console.log(checkObj(recipes), search);
-        //  console.log(search)
-
-
-    /*for (let recipe of recipes) {
-        for (let i of recipe.ingredients) {
-            if (i.ingredient == search) {
-                console.log("j'ai trouvé!")
-
-                resultOfSearch.innerHTML = ``
-                affichage =
-                    `<div class="recipe_card_container">
-                <img src="/images/${recipe.photo}" class="recipe_img">
-                <div class="recipe_title_infos">
-                    <h2 class="recipe_name">${recipe.name}</h2>
-                    <img class="clock" src="/images/clock-regular.svg">
-                    <p>${recipe.time} min</p>
-                </div>
-                <div class="howTo">
-                    <div class="recipe_ingredients">`;
-                // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
-                recipe.ingredients.forEach((e) => {
-                    affichage +=
-                        `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
-                });
-                affichage += `</div>
-                    <div class="recipe_ingredients_steps">`;
-                affichage += `<p class="recipe_steps">${recipe.description}</p> `;
-                affichage += `</div></div></div>`;
-                resultOfSearch.innerHTML = affichage
-            } else {
-                affichage =
-                    `<p class="noRecipe">Aucune recette ne correspond à votre recherche, retentez votre chance avec un autre mot!</p>`
-                resultOfSearch.innerHTML = affichage
-            }
-        }
-    }*/
 
 }
 
@@ -127,7 +52,7 @@ inputSearch.addEventListener('input', (e) => {
 
 /////// affichage de base ///////
 const initialDisplay = async() => {
-    await fetchSearch();
+    await fetchRecipes();
     for (let recipe of recipes) {
         affichage +=
             `<div class="recipe_card_container">
@@ -166,3 +91,39 @@ initialDisplay()
 
 // ALGORITHMES
 // https://www.youtube.com/watch?v=U8EJnJAwH1c
+
+
+
+/*for (let recipe of recipes) {
+      for (let i of recipe.ingredients) {
+          if (i.ingredient == search) {
+              console.log("j'ai trouvé!")
+
+              resultOfSearch.innerHTML = ``
+              affichage =
+                  `<div class="recipe_card_container">
+              <img src="/images/${recipe.photo}" class="recipe_img">
+              <div class="recipe_title_infos">
+                  <h2 class="recipe_name">${recipe.name}</h2>
+                  <img class="clock" src="/images/clock-regular.svg">
+                  <p>${recipe.time} min</p>
+              </div>
+              <div class="howTo">
+                  <div class="recipe_ingredients">`;
+              // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
+              recipe.ingredients.forEach((e) => {
+                  affichage +=
+                      `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
+              });
+              affichage += `</div>
+                  <div class="recipe_ingredients_steps">`;
+              affichage += `<p class="recipe_steps">${recipe.description}</p> `;
+              affichage += `</div></div></div>`;
+              resultOfSearch.innerHTML = affichage
+          } else {
+              affichage =
+                  `<p class="noRecipe">Aucune recette ne correspond à votre recherche, retentez votre chance avec un autre mot!</p>`
+              resultOfSearch.innerHTML = affichage
+          }
+      }
+  }*/

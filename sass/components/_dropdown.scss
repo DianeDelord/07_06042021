@@ -1,0 +1,117 @@
+nav {
+    margin: 15px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    @media all and (max-width: 769px) {
+        display: none;
+    }
+}
+
+nav>p {
+    margin-right: 15px;
+}
+
+nav>ul {
+    width: 140px;
+    margin: 0;
+    padding: 0;
+    //background-color: $primary-color;
+    border-radius: 5px;
+}
+
+nav>ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+nav>ul>li {
+    float: left;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+nav>ul>li a {
+    padding: 15px 20px;
+    color: white;
+}
+
+#chevron {
+    color: white;
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-bottom-left-radius: 2px;
+    transform: rotate(0deg) translate(0%, 0%);
+    transform-origin: center center;
+    transition: transform ease-in-out 100ms;
+    position: absolute;
+    top: 15px;
+    left: 109px;
+}
+
+nav>ul>li:hover a {
+    padding: 15px, 30px, 20px, 30px;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+.submenu {
+    display: none;
+}
+
+nav a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+nav li:hover .submenu {
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    padding: 0px;
+    z-index: 1000;
+}
+
+nav li:hover #chevron {
+    transform: rotate(180deg) translate(0%, 0%);
+}
+
+.submenu li {
+    border-top: 1.5px solid white;
+    padding: 10px 0;
+}
+
+.submenu li a {
+    padding: 15px 30px;
+    color: white;
+    width: 80px;
+}
+
+.menu-html .submenu:hover {
+    background-color: green;
+}
+
+.menu-html .submenu {
+    background-color: blue;
+    border-radius: 0 0 5px 5px;
+}
+
+.submenu li:hover a {
+    color: white;
+    font-weight: bold;
+}
+
+.menu-html .submenu li:hover a {
+    background-color: rgb(210, 77, 60, 0.5);
+}
+
+//////////////////
+/// https://www.youtube.com/watch?v=cWrmoGwQ1iE
