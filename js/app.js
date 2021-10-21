@@ -5,75 +5,88 @@ const fetchSearch = async() => {
     recipes = await fetch('recipes.json')
         .then(res => res.json())
         .then(res => res.recipes)
-    console.log(recipes)
-    console.log(returnName(recipes[1].name))
+        // console.log(recipes)
+        // console.log(recipes[1].photo)
 }
 
-var createEachCard
-class CardRecipe {
-    constructor(appliance, description, id, ingredients, name, servings, time, ustensils) {
-        this.appliance = appliance;
-        this.description = description;
-        this.id = id;
-        this.ingredients = ingredients;
-        this.name = name;
-        this.servings = servings;
-        this.time = time;
-        this.ustensils = ustensils;
-    }
-
-    get createTheCard() {
-        return this.createCard()
-    }
-    createCard() {
-        createEachCard = `<a href="./photographer.html?id=` + this.id + `" id="` + this.id + `" class="restrict" aria-label="` + this.name + `"> 
-        <li class="photographers-items"> <section> <img class="photographer-portrait" alt="${this.name}" src="images/Sample Photos/Photographers ID Photos/${this.portrait}">
-       </section> <section> <h2 class="photographer-name">${this.name}</h2> <p class="photographer-city">${this.city}, ${this.country}</p> <p class="tagline">${this.tagline}</p>
-    <p class="photographerPrice">${this.price}€/jour</p> <div class="photographer_listOfTags">`;
-        // boucle pour récupérer un à un les tags du photographe vu que le nombre de tags varie d'un photographe à l'autre
-        this.ingredients.forEach((element) => {
-            createEachCard +=
-                `<h5 class="generatedTags" title="ce photographe est spécialisé dans les photos sur le thème ${element}" >#${element}</h5>`;
-        });
-        this.ustensils.forEach((element) => {
-            createEachCard +=
-                `<h5 class="generatedTags" title="ce photographe est spécialisé dans les photos sur le thème ${element}" >#${element}</h5>`;
-        });
-        createEachCard += `</div> </section> </li> </a>`;
-        return createEachCard
-    }
-}
-
-
+let affichage = ``
+let newRecipe
 const searchDisplay = async() => {
     await fetchSearch();
-    if (recipes == null) {
-        resultOfSearch.innerHTML = "Aucune recette ne correspond à votre recherche :,("
-    } else {
-        resultOfSearch.innerHTML = (
-            recipes.map(recipe => (
-                `<div class="recipe_card_container">
-                <img src="/images/${returnName(recipe.name)}" class="recipe_img">
-                <div class="recipe_title_infos"><h2 class="recipe_name">${recipe.name}</h2>
-                <p>${recipe.time}</p><em class="far fa-clock"></em></div>
-                <div class="recipe_ingredients"><p>${recipe.ingredients}</p></div>
-                </div>`
-            )).join(''));
+    for (let recipe of recipes) {
+        for (let i of recipe.ingredients) {
+            if (i.ingredient == search) {
+                console.log("j'ai trouvé!")
+
+                resultOfSearch.innerHTML = ``
+                affichage =
+                    `<div class="recipe_card_container">
+                <img src="/images/${recipe.photo}" class="recipe_img">
+                <div class="recipe_title_infos">
+                    <h2 class="recipe_name">${recipe.name}</h2>
+                    <img class="clock" src="/images/clock-regular.svg">
+                    <p>${recipe.time} min</p>
+                </div>
+                <div class="howTo">
+                    <div class="recipe_ingredients">`;
+                // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
+                recipe.ingredients.forEach((e) => {
+                    affichage +=
+                        `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
+                });
+                affichage += `</div>
+                    <div class="recipe_ingredients_steps">`;
+                affichage += `<p class="recipe_steps">${recipe.description}</p> `;
+                affichage += `</div></div></div>`;
+                resultOfSearch.innerHTML = affichage
+            } else {
+                affichage =
+                    `<p class="noRecipe">Aucune recette ne correspond à votre recherche, retentez votre chance avec un autre mot!</p>`
+                resultOfSearch.innerHTML = affichage
+            }
+        }
     }
+
 }
-fetchSearch()
 
 inputSearch.addEventListener('input', (e) => {
-    if (e.target.value.length >= 3) {
-        console.log(e.target.value)
+    if (e.target.value.length >= 4) {
+        // console.log(e.target.value)
         search = e.target.value;
         searchDisplay()
     }
 })
 
-function returnName(name) {
-    return name.toLowerCase().replaceAll(" ", "_").replaceAll("à", "a").replaceAll("é", "e").replaceAll("è", "e").replaceAll("ê", "e").replaceAll(",", "").replaceAll("â", "a").replaceAll("'", "_") + (".jpeg")
+/////// affichage de base ///////
+const initialDisplay = async() => {
+    await fetchSearch();
+    for (let recipe of recipes) {
+        affichage +=
+            `<div class="recipe_card_container">
+            <img src="/images/${recipe.photo}" class="recipe_img">
+            <div class="recipe_title_infos">
+                <h2 class="recipe_name">${recipe.name}</h2>
+                <img class="clock" src="/images/clock-regular.svg">
+                <p>${recipe.time} min</p>
+            </div>
+            <div class="howTo">
+                <div class="recipe_ingredients">`;
+        // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
+        recipe.ingredients.forEach((e) => {
+            affichage +=
+                `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
+        });
+        affichage += `</div>
+                <div class="recipe_ingredients_steps">`;
+        affichage += `<p class="recipe_steps">${recipe.description}</p> `;
+        affichage += `</div></div></div>`;
+    }
+    resultOfSearch.innerHTML = affichage
+
 }
+initialDisplay()
+
+
 
 //resultOfSearch.innerHTML = meals[0]
 

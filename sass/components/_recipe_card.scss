@@ -9,7 +9,7 @@
     background-color: $second-color;
     border-radius: 5px;
     margin-bottom: 50px;
-    img {
+    .recipe_img {
         width: 350px;
         height: 225px;
         object-fit: cover;
@@ -29,7 +29,29 @@
         font-size: .8em;
         font-weight: bolder;
     }
+    .clock {
+        width: 20px;
+        height: auto;
+    }
+    .howTo {
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        justify-content: space-around;
+    }
+    .howTo p {
+        font-size: .5em;
+        margin-bottom: .5em;
+    }
     .recipe_ingredients {
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    }
+    .recipe_ingredients_steps {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
     }
 }
