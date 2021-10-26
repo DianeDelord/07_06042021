@@ -53,7 +53,7 @@ const initialDisplay = async() => {
             <img src="./images/${recipe.photo}" class="recipe_img">
             <div class="recipe_title_infos">
                 <h2 class="recipe_name">${recipe.name}</h2>
-                <img class="clock" src="/images/clock-regular.svg">
+                <img class="clock" src="./images/clock-regular.svg">
                 <p>${recipe.time} min</p>
             </div>
             <div class="howTo">
@@ -124,7 +124,6 @@ class Recipes2 {
     filterByTag(search, recipeName, tag) {
         console.log("etape filtre par tag")
             //console.log(`je filtre les recettes ayant comme ${Object.keys(tag)[0]} les valeurs ${Object.values(tag)[0]} `)
-            // console.log(`je filtre les recettes ayant comme ${Object.keys(tag)[0]} les valeurs ${Object.values(tag)[0]} `)
         return recipeName, tag
     }
 
@@ -136,11 +135,7 @@ class Recipes2 {
             recipe.ingredients.includes(search)
         )
         console.log(resultOfSearchingInDescAndNameAndIngr)
-            //console.log(forEach (recipes => recipe.Object.keys(recipes[1]), Object.values(recipes[1]))
-        return resultOfSearchingInDescAndNameAndIngr // ça marche mais n'a pas cherché dans les ingrédients
-
-        // rechercher à nouveau dans les ingrédients????
-        // si oui, j'ai une fonction qui récupère les ingrédients donc je dois trouver comment réutiliser ça
+        return resultOfSearchingInDescAndNameAndIngr
     }
 };
 
