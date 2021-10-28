@@ -19,39 +19,54 @@
         left: 0;
     }
     .recipe_title_infos {
-        margin: 15px 0px 0px;
+        margin: 0px;
         display: flex;
         padding: 0;
-        margin: 15px 0px 0px;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
     }
     .recipe_name {
         font-size: .8em;
         font-weight: bolder;
     }
     .clock {
-        width: 20px;
-        height: auto;
+        width: 17px;
+        margin-right: 5px;
+    }
+    .clockTime {
+        display: flex;
+        flex-direction: row;
+        width: auto;
     }
     .howTo {
         display: flex;
         flex-direction: row;
-        margin: auto;
-        justify-content: space-around;
-    }
-    .howTo p {
-        font-size: .5em;
-        margin-bottom: .5em;
+        justify-content: space-between;
+        width: 90%;
+        align-items: baseline;
+        margin: 0;
     }
     .recipe_ingredients {
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        width: 30%;
+        width: 35%;
+        margin: 0;
+        padding: 0;
     }
     .recipe_ingredients_steps {
         display: flex;
         flex-direction: column;
         width: 60%;
+    }
+    .recipe_steps {
+        font-size: .6em;
+    }
+    .recipe_title_ingredient {
+        list-style: none;
+        font-size: .6em;
+        font-weight: bold;
     }
 }

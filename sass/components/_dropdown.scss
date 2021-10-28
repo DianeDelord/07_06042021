@@ -1,117 +1,281 @@
-nav {
-    margin: 15px;
+.dropdown {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    @media all and (max-width: 769px) {
-        display: none;
-    }
-}
-
-nav>p {
-    margin-right: 15px;
-}
-
-nav>ul {
-    width: 140px;
-    margin: 0;
-    padding: 0;
-    //background-color: $primary-color;
     border-radius: 5px;
+    height: auto;
 }
 
-nav>ul::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-nav>ul>li {
-    float: left;
+.dropdown__ingredients {
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: max-content;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
+}
+
+.dropdown__ingredients:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ingredients_box {
     display: flex;
     flex-direction: row;
-}
-
-nav>ul>li a {
-    padding: 15px 20px;
+    justify-content: space-between;
+    align-items: center;
+    height: 69px;
+    margin: 0 10px;
+    border-radius: 5px;
     color: white;
 }
 
-#chevron {
-    color: white;
-    content: "";
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border-bottom-left-radius: 2px;
-    transform: rotate(0deg) translate(0%, 0%);
-    transform-origin: center center;
-    transition: transform ease-in-out 100ms;
-    position: absolute;
-    top: 15px;
-    left: 109px;
-}
-
-nav>ul>li:hover a {
-    padding: 15px, 30px, 20px, 30px;
-}
-
-nav li {
-    list-style-type: none;
-}
-
-.submenu {
-    display: none;
-}
-
-nav a {
-    display: inline-block;
-    text-decoration: none;
-}
-
-nav li:hover .submenu {
-    display: inline-block;
-    position: absolute;
-    top: 100%;
-    left: 0px;
-    padding: 0px;
-    z-index: 1000;
-}
-
-nav li:hover #chevron {
-    transform: rotate(180deg) translate(0%, 0%);
-}
-
-.submenu li {
-    border-top: 1.5px solid white;
-    padding: 10px 0;
-}
-
-.submenu li a {
-    padding: 15px 30px;
-    color: white;
-    width: 80px;
-}
-
-.menu-html .submenu:hover {
-    background-color: green;
-}
-
-.menu-html .submenu {
+.dropdown__ingredients_box-input {
     background-color: blue;
-    border-radius: 0 0 5px 5px;
-}
-
-.submenu li:hover a {
+    border: none;
     color: white;
-    font-weight: bold;
+    font-size: 1.5rem;
+    width: 115px;
 }
 
-.menu-html .submenu li:hover a {
-    background-color: rgb(210, 77, 60, 0.5);
+.dropdown__ingredients_box-input::placeholder {
+    color: white;
+    font-size: 1.5rem;
 }
 
-//////////////////
-/// https://www.youtube.com/watch?v=cWrmoGwQ1iE
+.dropdown__ingredients_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__ingredients_box-input:focus::placeholder {
+    color: white;
+    font-size: 1.3rem;
+}
+
+.dropdown__ingredients_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.3s ease;
+}
+
+.dropdown__ingredients_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__ingredients__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    transition: all 0.5s;
+    position: absolute;
+    top: 77px;
+    overflow: hidden;
+    background-color: blue;
+    z-index: 100;
+}
+
+.dropdown__ingredients__list:hover {
+    box-shadow: inherit;
+}
+
+.dropdown__ingredients__list-item {
+    font-size: 1.5rem;
+    list-style-type: none;
+    width: 33%;
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.dropdown__appareil {
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: auto;
+    margin-left: 20px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.dropdown__appareil:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__appareil:focus {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__appareil_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 170px;
+    height: 69px;
+    margin: 0 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.dropdown__appareil_box-input {
+    background-color: green;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 115px;
+}
+
+.dropdown__appareil_box-input::placeholder {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.dropdown__appareil_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__appareil_box-input:focus::placeholder {
+    color: white;
+}
+
+.dropdown__appareil_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.5s ease;
+}
+
+.dropdown__appareil_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__appareil__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    transition: all 0.5s;
+    z-index: 100;
+}
+
+.dropdown__appareil__list-item {
+    font-size: 1.5rem;
+    list-style-type: none;
+    width: 33%;
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.dropdown__ustensiles {
+    background-color: red;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: auto;
+    margin-left: 20px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.dropdown__ustensiles:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ustensiles:focus {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ustensiles_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 170px;
+    height: 69px;
+    margin: 0 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.dropdown__ustensiles_box-input {
+    background-color: red;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 115px;
+}
+
+.dropdown__ustensiles_box-input::placeholder {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.dropdown__ustensiles_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__ustensiles_box-input:focus::placeholder {
+    color: white;
+}
+
+.dropdown__ustensiles_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.5s ease;
+}
+
+.dropdown__ustensiles_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__ustensiles__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: red;
+    color: white;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    transition: all 0.5s ease;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    z-index: 100;
+}
+
+.dropdown__ustensiles__list-item {
+    font-size: 1.5rem;
+    list-style-type: none;
+    width: 33%;
+    max-height: 50px;
+    cursor: pointer;
+}
