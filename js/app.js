@@ -1,3 +1,24 @@
+// fonction pour passer une string en minusucle sans accent
+function lowerCaseWithoutAccent(string) {
+    return string.replaceAll('é', 'e').replaceAll('à', 'a').replaceAll('â', 'a').replaceAll('è', 'e').replaceAll('ê', 'e').replaceAll('ï', 'i').replaceAll('î', 'i').replaceAll('\'', ' ').toLowerCase()
+}
+
+function  hasInRecipe(recipe,search) {
+
+    for (let ingredient of recipe.ingredients) {
+        const ingredientName = ingredient.ingredient;
+        if (ingredientName.includes(search)){
+            return true
+        }
+    }
+    return false
+}
+/** 
+ * 
+ * 
+ * 
+
+
 let resultOfSearch = document.getElementById("resultOfSearch")
 let inputSearch = document.getElementById("inputSearch")
 let searchIngredientInput = document.getElementById("searchIngredientInput")
@@ -15,14 +36,6 @@ let ingredientName
 let eachIngredient
 let tableauPourEssai = []
 let recetteCree
-
-
-// fonction pour passer une string en minusucle sans accent
-function lowerCaseWithoutAccent(string) {
-    return string.replaceAll('é', 'e').replaceAll('à', 'a').replaceAll('â', 'a').replaceAll('è', 'e').replaceAll('ê', 'e').replaceAll('ï', 'i').replaceAll('î', 'i').replaceAll('\'', ' ').toLowerCase()
-}
-
-/////////////////////////////
 // récupération des données
 const fetchRecipes = async() => {
     recipes = await fetch('recipes.json')
@@ -132,101 +145,75 @@ initialDisplay()
 let resultOfSearchingInDescAndNameAndIngr
 let resultOfSearchingInIngr = []
 let initial
-
+**/
 ///////////////// Guillaume algo recursif
 class Recipes2 {
-    constructor(appliance, description, id, ingredients, name, photo, servings, time, ustensils) {
-        this.appliance = appliance;
-        this.description = description;
-        this.id = id;
-        this.ingredients = ingredients;
-        this.name = name;
-        this.photo = photo;
-        this.servings = servings;
-        this.time = time;
-        this.ustensils = ustensils;
-        this.data = recipes
+    constructor() {
+        this.data = []
         this.filteredRecipes = []
+        this.filteredtags = []
     }
 
 
-    fetchData() { //ok
-        //ici on recupere la data depuis le fichier json et on initialise la list des recettes 
-        //console.log(recipes)
-        for (let recipe of recipes) {
-            recetteCree = new Recipes2(recipe.appliance, recipe.description, recipe.id, recipe.ingredients, recipe.name, recipe.photo, recipe.servings, recipe.time, recipe.ustensils)
-                // console.log(recetteCree)
-                // console.log(recetteCree.id)
-                // return recetteCree
-        }
+    async fetchData() { //ok
+        this.data = await fetch('recipes.json')
+        .then(res => res.json())
+        .then(res => res.recipes)
+        console.log(this.data);
+
     }
 
-    check() {
-        this.fetchData()
-            //console.log("etape check")
-        console.log(recipes)
 
-        // console.log(this.getIngredientsFromRecipes(search)) //ok
-        //console.log(this.filterByTag(this.data, { ingredient: ['poivron'] }))
 
-        //if la saisie est dans l'input ingredient, on lance la fonction recherche dans ingrédient
-        // sinon recherche dans tout 
+    async check() {
+       await this.fetchData()
+        console.log("etape check")
+        console.log(this.getIngredientsFromRecipes(this.data)) //ok
+        console.log(this.filterByText(this.data,'coco')) //ok
+        console.log(this.filterByTag(this.data, { ingredient: 'Oeuf' }))
+        console.log(this.filterByTag(this.data, { appliance: 'Blender' }))
+        console.log(this.filterByTag(this.data, { ustensil: 'saladier' }))
+
+        const filteredRecipes = this.filterByTag(this.data, { ingredient: 'Pomme' })
+        console.log(this.filterByTag(filteredRecipes,{ ustensil: 'couteau' }))
+
+     
+     
     }
 
-    getIngredientsFromRecipes() { //ok
+    getIngredientsFromRecipes(recipes) { //ok
         console.log("-------------------------------------------------")
         console.log("etape liste des ingredient")
-
-        function recupEach() {
+        const ingredients = [];
+     
             for (let recipe of recipes) {
                 for (let ingredient of recipe.ingredients) {
-                    recipeName = recipe.name
-                    tag = ingredient.ingredient
-                        //console.log(search)   
-                    if (search.length < 3) {
-                        return false
-                    } else if (tag.includes(search)) {
-                        console.log(recipe.name + " contient du " + tag)
-                        arrayOfRecipeBySearch.indexOf(recipe.name) === -1 ? arrayOfRecipeBySearch.push(recipe.name) : console.log("doublon de résultat");
-                    }
+                    const ingredientName = ingredient.ingredient;
+                    ingredients.indexOf(ingredientName) === -1 ? ingredients.push(ingredientName) : console.log(`${ingredientName} est deja present dans ma liste d'ingredient`);
+
                 }
             }
-            console.log(arrayOfRecipeBySearch)
-        }
-        recupEach()
-
-
-
-        //console.log(search)
-        //return recipeName, tag; // ok retourne bien les noms de recettes et les ingredients*/
-
-        ///// ATTENTION, si y'a des doublons? already exists? /////////
-        //// grâce à l'id? ///////
-
-        /* for (const key in recipes) {
-             //console.log(recipes[key])
-             for (const key2 in recipes[key]) {
-                 //console.log(key2)
-                 //console.log(key + key2)
-             }
-         }*/
-
+        return ingredients;
     }
 
-    filterByTag() {
+    getTagValuesFromRecipes(recipes,tagName){
+        return []
+    }
+
+    filterByTags(recipes,tags){
+        return recipes;
+    }
+
+    displayRecipes(recipes){}
+
+    filterByTag(recipes,tag) {
         console.log("-------------------------------------------------")
         console.log("etape filtre par tag")
-            //console.log(`je filtre les recettes ayant comme ${Object.keys(tag)[0]} les valeurs ${Object.values(tag)[0]} `)
-            //console.log(`je filtre les recettes ayant comme ${tag} les valeurs ${search} `)
-            //console.log(recetteCree) // seulement la dernière
 
-        // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Errors/is_not_iterable
+        const key = Object.keys(tag)[0]
+        const value = Object.values(tag)[0]
 
-        for (let recipe of recipes) {
-            let alors = recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).join(" ").includes(search)
-                // tableauPourEssai.push(recipe)
-            console.log(alors)
-        }
+
         /*
                 for (let recipe of recipes) {
                     console.log(recipe)
@@ -238,42 +225,49 @@ class Recipes2 {
                     }
                 }*/
 
-        let recettesMatchent = recipes.filter(function(recipe) {
-            console.log(recipe.ingredients)
-            if (recipe.ingredients) {
-                console.log("coucou")
-            }
-        })
+    return recipes.filter(function(recipe) {
+         
+        switch(key){
+            case 'ingredient':
+                for (let ingredient of recipe.ingredients) {
+                    const ingredientName = ingredient.ingredient;
+                    if (ingredientName === value){
+                        return true 
+                    }
+                }
+                return false
+
+            case 'appliance':
+                return recipe.appliance === value;
+            case 'ustensil':
+                return recipe.ustensils.includes(value)
+            default:
+                return true;
+
+        }
+    })
+
 
 
     }
 
-
-
-    filterByText(search, recipeName, tag) {
+    filterByText(recipes,search) {
         console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
         console.log("etape filtre dans tout")
+        return recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe,search))
 
-        resultOfSearchingInDescAndNameAndIngr = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search))
-        console.log(resultOfSearchingInDescAndNameAndIngr)
-        return resultOfSearchingInDescAndNameAndIngr
     }
 };
 
 const recipes2 = new Recipes2()
 const test = async() => {
-    recipes = await fetch('recipes.json')
-        .then(res => res.json())
-        .then(res => res.recipes)
-        //console.log(recipes)
 
-    recipes2.fetchData();
     recipes2.check();
-    recipes2.getIngredientsFromRecipes(recipes, search);
-    recipes2.filterByTag();
-    //recipes2.filterByText(search, recipeName, tag); // ça ça marche! ça renvoie un array des résultats
-    return recipes
+    
+    //recipes2.filterByText(search, recipeName, tag); // ça ça marche! ça renvoie un array des résultat
 }
+
+
 test()
 
 
