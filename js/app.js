@@ -156,6 +156,8 @@ class Recipes2 {
         for (let recipe of recipes) {
             recetteCree = new Recipes2(recipe.appliance, recipe.description, recipe.id, recipe.ingredients, recipe.name, recipe.photo, recipe.servings, recipe.time, recipe.ustensils)
                 // console.log(recetteCree)
+                // console.log(recetteCree.id)
+                // return recetteCree
         }
     }
 
@@ -194,19 +196,21 @@ class Recipes2 {
         recupEach()
 
 
+
         //console.log(search)
         //return recipeName, tag; // ok retourne bien les noms de recettes et les ingredients*/
 
         ///// ATTENTION, si y'a des doublons? already exists? /////////
         //// grâce à l'id? ///////
 
-        for (const key in recipes) {
-            //console.log(recipes[key])
-            for (const key2 in recipes[key]) {
-                //console.log(key2)
-                //console.log(key + key2)
-            }
-        }
+        /* for (const key in recipes) {
+             //console.log(recipes[key])
+             for (const key2 in recipes[key]) {
+                 //console.log(key2)
+                 //console.log(key + key2)
+             }
+         }*/
+
     }
 
     filterByTag() {
@@ -214,15 +218,37 @@ class Recipes2 {
         console.log("etape filtre par tag")
             //console.log(`je filtre les recettes ayant comme ${Object.keys(tag)[0]} les valeurs ${Object.values(tag)[0]} `)
             //console.log(`je filtre les recettes ayant comme ${tag} les valeurs ${search} `)
-            //console.log(recipes)
             //console.log(recetteCree) // seulement la dernière
+
+        // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Errors/is_not_iterable
 
         for (let recipe of recipes) {
             let alors = recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).join(" ").includes(search)
                 // tableauPourEssai.push(recipe)
             console.log(alors)
         }
+        /*
+                for (let recipe of recipes) {
+                    console.log(recipe)
+                    console.log(recipe.ingredients.name)
+                    console.log(this)
+                    for (let ingredients of recipe) {
+                        console.log(ingredients)
+                            // console.log(ingredients.ingredient)
+                    }
+                }*/
+
+        let recettesMatchent = recipes.filter(function(recipe) {
+            console.log(recipe.ingredients)
+            if (recipe.ingredients) {
+                console.log("coucou")
+            }
+        })
+
+
     }
+
+
 
     filterByText(search, recipeName, tag) {
         console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)

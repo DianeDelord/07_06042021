@@ -9,6 +9,11 @@
     background-color: $second-color;
     border-radius: 5px;
     margin-bottom: 50px;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 5px 5px 12px #555;
+    }
     .recipe_img {
         width: 350px;
         height: 225px;
@@ -17,6 +22,7 @@
         position: relative;
         top: 0;
         left: 0;
+        border-radius: 5px 5px 0 0;
     }
     .recipe_title_infos {
         margin: 0px;
