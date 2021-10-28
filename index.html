@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b7afbb8d12.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="sass/style.css">
     <title>Les petits plats</title>
@@ -19,41 +20,62 @@
         <img id="headerInfos-img" src="images/les_petits_plats_logo.png" title="logo du site Les Petits Plats" alt="logo du site">
     </header>
     <main>
-        <input type="text" id="inputSearch" placeholder="Rechercher un ingrédient, un appareil, un ustensile, une recette…">
+        <section id="searchArea">
+            <input type="text" id="inputSearch" placeholder="Rechercher un ingrédient, un appareil, un ustensile, une recette…">
+            <i class="fas fa-search"></i>
+        </section>
 
-        <!-- dropdown ingredients -->
-        <nav id="menu-deroulant">
+        <section class="tag">
+            <div class="tag__blue">
 
-            <ul>
-                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ingrédients
-                    <ul class="submenu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                    </ul>
-                </li>
-            </ul>
+            </div>
+            <div class="tag__green">
+
+            </div>
+            <div class="tag__red">
+
+            </div>
+        </section>
+
+        <section class="dropdown">
+
+            <!-- dropdown ingredients -->
+            <div class="dropdown__ingredients">
+                <div class="dropdown__ingredients_box">
+                    <input type="text" class="dropdown__ingredients_box-input" placeholder="Ingrédients" maxlength="15">
+                    <i class="fas fa-chevron-up dropdown__ingredients_box-arrow"></i>
+                </div>
+
+                <ul class="dropdown__ingredients__list">
+                    <!-- résultats dynamiques à rentrer -->
+                </ul>
+            </div>
 
             <!-- dropdown appareil -->
-            <ul>
-                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Appareil
-                    <ul class="submenu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="dropdown__appareil">
+                <div class="dropdown__appareil_box">
+                    <input type="text" class="dropdown__appareil_box-input" placeholder="Appareil" maxlength="15">
+                    <i class="fas fa-chevron-up dropdown__appareil_box-arrow"></i>
+                </div>
+
+                <ul class="dropdown__appareil__list">
+                    <!-- résultats dynamiques à rentrer -->
+                </ul>
+            </div>
 
             <!-- dropdown ustensiles -->
-            <ul>
-                <li class="menu-html" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ustensiles
-                    <ul class="submenu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="dropdown__ustensiles">
+                <div class="dropdown__ustensiles_box">
+                    <input type="text" class="dropdown__ustensiles_box-input" placeholder="Ustensiles" maxlength="15">
+                    <i class="fas fa-chevron-up dropdown__ustensiles_box-arrow"></i>
+                </div>
 
-        </nav>
+                <ul class="dropdown__ustensiles__list">
+                    <!-- résultats dynamiques à rentrer -->
+                </ul>
+            </div>
+        </section>
+
 
         <!-- résultats de recherche -->
         <div id="resultOfSearch"></div>
