@@ -1,152 +1,71 @@
-// fonction pour passer une string en minusucle sans accent
+let resultOfSearch = document.getElementById("resultOfSearch")
+let inputSearch = document.getElementById("inputSearch")
+    //let searchIngredientInput = document.getElementById("searchIngredientInput")
+
+let inputSearchIngredient = document.querySelector(".dropdown__ingredients_box-input")
+let dropdown__ingredients_box = document.querySelector(".dropdown__ingredients_box")
+let dropdown__appareils_box = document.querySelector(".dropdown__appareils_box")
+let dropdown__ustensiles_box = document.querySelector(".dropdown__ustensiles_box")
+
+let search = ""
+let searchIngredient = ""
+let tags
+let tag
+let tagIngredient
+let tagAppareil
+let tagUstensils
+
+let ingredients
+let appareils
+let ustensiles
+let recipeName
+let ingredientsArray = []
+let recipes
+let ingredientName
+let recetteCree
+
+let resultOfSearchingInDescAndNameAndIngr
+let resultOfSearchingInIngr = []
+let initial
+
+// fonction pour passer une string en minuscule sans accent
 function lowerCaseWithoutAccent(string) {
     return string.replaceAll('é', 'e').replaceAll('à', 'a').replaceAll('â', 'a').replaceAll('è', 'e').replaceAll('ê', 'e').replaceAll('ï', 'i').replaceAll('î', 'i').replaceAll('\'', ' ').toLowerCase()
 }
 
-function  hasInRecipe(recipe,search) {
+//fonction pour passer la première lettre d'une string en majuscule
+function firstLetterOfAstringToUpperCase(string) {
+    return string.replace(/^./, string[0].toUpperCase());
+}
 
+inputSearch.addEventListener('keydown', (e) => {
+    if (e.target.value.length >= 3) {
+        console.log("recherche input ingrédient")
+        test()
+        return search = lowerCaseWithoutAccent(e.target.value);
+    }
+})
+
+inputSearchIngredient.addEventListener('keydown', (e) => {
+    if (e.target.value.length >= 3) {
+        console.log("recherche dropdown ingrédient")
+        test()
+        return searchIngredient = lowerCaseWithoutAccent(e.target.value);
+    }
+    // this.filterByTag(this.data, { ingredient: searchInput })
+})
+
+function hasInRecipe(recipe, search) {
     for (let ingredient of recipe.ingredients) {
         const ingredientName = ingredient.ingredient;
-        if (ingredientName.includes(search)){
+        if (ingredientName.includes(search)) {
             return true
         }
     }
     return false
 }
-/** 
- * 
- * 
- * 
 
-
-let resultOfSearch = document.getElementById("resultOfSearch")
-let inputSearch = document.getElementById("inputSearch")
-let searchIngredientInput = document.getElementById("searchIngredientInput")
-let search = ""
-let affichage = ``
-let matchingRecipe
-let arrayOfRecipeBySearch = []
-let tags
-let tag
-let ingredients
-let recipeName
-let ingredientsArray
-let recipes
-let ingredientName
-let eachIngredient
-let tableauPourEssai = []
-let recetteCree
-// récupération des données
-const fetchRecipes = async() => {
-    recipes = await fetch('recipes.json')
-        .then(res => res.json())
-        .then(res => res.recipes)
-    return recipes
-}
-
-const searchDisplay = async() => {
-    await fetchRecipes();
-}
-
-inputSearch.addEventListener('input', (e) => {
-    tableauPourEssai = [] // là je récupère que des true/false alors comment je peux savoir les true?
-
-    if (e.target.value.length >= 3) {
-        search = lowerCaseWithoutAccent(e.target.value);
-        console.log(search)
-
-        arrayOfRecipeBySearch = [] // parce que sinon les résultats s'ajoutaient
-            // console.log(arrayOfRecipeBySearch)
-        test()
-        return search
-    }
-})
-
-/////// affichage de base ///////
-const initialDisplay = async() => {
-    await fetchRecipes();
-    // for (let recipe of recipes) {
-    recipes.forEach(recipe => {
-        let recipe_card_container = document.createElement("div");
-        recipe_card_container.setAttribute("class", "recipe_card_container");
-
-        let recipe_img = document.createElement("img");
-        recipe_img.setAttribute("src", `./images/${recipe.photo}`);
-        recipe_img.setAttribute("class", "recipe_img");
-
-        let recipe_title_infos = document.createElement("div");
-        recipe_title_infos.setAttribute("class", "recipe_title_infos");
-
-        let recipe_name = document.createElement("h2");
-        recipe_name.setAttribute("class", "recipe_name");
-        recipe_name.innerHTML = recipe.name;
-
-        let clock = document.createElement("p");
-        clock.setAttribute("class", "clockTime");
-        clock.innerHTML = `<img class="clock" src="./images/clock-regular.svg"><span>${recipe.time} min</span>`;
-
-        let howTo = document.createElement("div");
-        howTo.setAttribute("class", "howTo");
-
-        let recipe_ingredients = document.createElement("ul");
-        recipe_ingredients.setAttribute("class", "recipe_ingredients");
-
-        let recipe_ingredients_steps = document.createElement("div");
-        recipe_ingredients_steps.setAttribute("class", "recipe_ingredients_steps");
-
-        let recipe_steps = document.createElement("p");
-        recipe_steps.setAttribute("class", "recipe_steps");
-        recipe_steps.innerHTML = `${recipe.description}`
-
-        recipe.ingredients.forEach(ingredientElement => {
-            let ingredient = document.createElement("li");
-            ingredient.setAttribute("class", "recipe_title_ingredient");
-            let quantity = document.createElement("span");
-            quantity.setAttribute("class", "quantity");
-
-            ingredient.innerHTML = `${ingredientElement.ingredient} : `;
-
-            if (ingredientElement.quantity == undefined) {
-                ingredientElement.quantity = "";
-            }
-            if (ingredientElement.unit == "grammes") {
-                ingredientElement.unit = "g";
-            }
-            if (ingredientElement.unit == "cuillères à soupe") {
-                ingredientElement.unit = "cs";
-            }
-            if (ingredientElement.unit == undefined) {
-                ingredientElement.unit = "";
-            }
-            quantity.innerHTML = `${ingredientElement.quantity}&nbsp;${ingredientElement.unit}`; // espace insécable!
-
-            ingredient.appendChild(quantity);
-            recipe_ingredients.appendChild(ingredient);
-        })
-
-        recipe_card_container.appendChild(recipe_img);
-        recipe_card_container.appendChild(recipe_title_infos);
-
-        recipe_title_infos.appendChild(recipe_name);
-        recipe_title_infos.appendChild(clock);
-
-        recipe_card_container.appendChild(howTo);
-        howTo.appendChild(recipe_ingredients);
-        howTo.appendChild(recipe_ingredients_steps);
-
-        recipe_ingredients_steps.appendChild(recipe_steps);
-
-        resultOfSearch.appendChild(recipe_card_container);
-    })
-}
-
-initialDisplay()
-
-let resultOfSearchingInDescAndNameAndIngr
-let resultOfSearchingInIngr = []
-let initial
-**/
-///////////////// Guillaume algo recursif
+///////////////// algo recursif
 class Recipes2 {
     constructor() {
         this.data = []
@@ -154,240 +73,397 @@ class Recipes2 {
         this.filteredtags = []
     }
 
-
     async fetchData() { //ok
+        //ici on recupere la data depuis le fichier json et on initialise la liste des recettes 
         this.data = await fetch('recipes.json')
-        .then(res => res.json())
-        .then(res => res.recipes)
-        console.log(this.data);
-
+            .then(res => res.json())
+            .then(res => res.recipes)
+        recipes = this.data
+        console.log("-------------------------------------------------")
+        console.log("étape data ok")
+            //console.log(recipes)
     }
-
-
 
     async check() {
-       await this.fetchData()
-        console.log("etape check")
-        console.log(this.getIngredientsFromRecipes(this.data)) //ok
-        console.log(this.filterByText(this.data,'coco')) //ok
-        console.log(this.filterByTag(this.data, { ingredient: 'Oeuf' }))
-        console.log(this.filterByTag(this.data, { appliance: 'Blender' }))
-        console.log(this.filterByTag(this.data, { ustensil: 'saladier' }))
-
-        const filteredRecipes = this.filterByTag(this.data, { ingredient: 'Pomme' })
-        console.log(this.filterByTag(filteredRecipes,{ ustensil: 'couteau' }))
-
-     
-     
-    }
-
-    getIngredientsFromRecipes(recipes) { //ok
         console.log("-------------------------------------------------")
-        console.log("etape liste des ingredient")
-        const ingredients = [];
-     
-            for (let recipe of recipes) {
-                for (let ingredient of recipe.ingredients) {
-                    const ingredientName = ingredient.ingredient;
-                    ingredients.indexOf(ingredientName) === -1 ? ingredients.push(ingredientName) : console.log(`${ingredientName} est deja present dans ma liste d'ingredient`);
+        console.log("étape check")
+        await this.fetchData()
+        this.displayRecipes(recipes) // affiche les recettes
+        this.getIngredientsFromRecipes(recipes, search) // récupère les ingrédients des recettes affichées
+            //  this.getAppareilsFromRecipes(recipes, search) // récupère les appareils des recettes affichées
+            //  this.getUstensilesFromRecipes(recipes, search) // récupère les ustensils des recettes affichées
+            //this.displayCategorieIngredients(ingredients, appareils, ustensiles)
 
-                }
-            }
-        return ingredients;
+        // this.addTagOnHTML(ingredients, appareils, ustensiles)
+
+
+        //  console.log(this.getIngredientsFromRecipes(this.data)) //ok
+        ///  console.log(this.filterByText(this.data, 'coco')) //ok
+        //  console.log("recherche pas tag ingrédient oeuf")
+        // console.log(this.filterByTag(this.data, { ingredient: 'Oeuf' }))
+        // console.log("recherche pas tag appareil blender")
+        //  console.log(this.filterByTag(this.data, { appliance: 'Blender' }))
+        //  console.log("recherche pas tag ustensile saladier")
+        //  console.log(this.filterByTag(this.data, { ustensil: 'saladier' }))
+
+        //  console.log("recherche par tag ingrédient pomme")
+        //  const filteredRecipes = this.filterByTag(this.data, { ingredient: 'Pomme' })
+
+        //  console.log("recherche par tag ustensil couteau dans les résultats de précédente recherche pomme")
+        //  console.log("ajout de tag!!!")
+        //  console.log(this.filterByTag(filteredRecipes, { ustensil: 'couteau' }))
+        //console.log(this.getIngredientsFromRecipes(recipes, search)) //ok
     }
 
-    getTagValuesFromRecipes(recipes,tagName){
+    async displayRecipes(recipes) { // ok
+        await this.fetchData()
+        console.log("parée pour l'affichage")
+            //console.log(recipes)
+            /////// affichage de base ///////
+            // for (let recipe of recipes) {
+
+        recipes.forEach(recipe => {
+            let recipe_card_container = document.createElement("div");
+            recipe_card_container.setAttribute("class", "recipe_card_container");
+
+            let recipe_img = document.createElement("img");
+            recipe_img.setAttribute("src", `./images/${recipe.photo}`);
+            recipe_img.setAttribute("class", "recipe_img");
+
+            let recipe_title_infos = document.createElement("div");
+            recipe_title_infos.setAttribute("class", "recipe_title_infos");
+
+            let recipe_name = document.createElement("h2");
+            recipe_name.setAttribute("class", "recipe_name");
+            recipe_name.innerHTML = recipe.name;
+
+            let clock = document.createElement("p");
+            clock.setAttribute("class", "clockTime");
+            clock.innerHTML = `<img class="clock" src="./images/clock-regular.svg"><span>${recipe.time} min</span>`;
+
+            let howTo = document.createElement("div");
+            howTo.setAttribute("class", "howTo");
+
+            let recipe_ingredients = document.createElement("ul");
+            recipe_ingredients.setAttribute("class", "recipe_ingredients");
+
+            let recipe_ingredients_steps = document.createElement("div");
+            recipe_ingredients_steps.setAttribute("class", "recipe_ingredients_steps");
+
+            let recipe_steps = document.createElement("p");
+            recipe_steps.setAttribute("class", "recipe_steps");
+            recipe_steps.innerHTML = `${recipe.description}`
+
+            recipe.ingredients.forEach(ingredientElement => {
+                let ingredient = document.createElement("li");
+                ingredient.setAttribute("class", "recipe_title_ingredient");
+                let quantity = document.createElement("span");
+                quantity.setAttribute("class", "quantity");
+
+                ingredient.innerHTML = `${ingredientElement.ingredient} : `;
+
+                if (ingredientElement.quantity == undefined) {
+                    ingredientElement.quantity = "";
+                }
+                if (ingredientElement.unit == "grammes") {
+                    ingredientElement.unit = "g";
+                }
+                if (ingredientElement.unit == "cuillères à soupe") {
+                    ingredientElement.unit = "cs";
+                }
+                if (ingredientElement.unit == undefined) {
+                    ingredientElement.unit = "";
+                }
+                quantity.innerHTML = `${ingredientElement.quantity}&nbsp;${ingredientElement.unit}`; // espace insécable!
+
+                ingredient.appendChild(quantity);
+                recipe_ingredients.appendChild(ingredient);
+            })
+            recipe_card_container.appendChild(recipe_img);
+            recipe_card_container.appendChild(recipe_title_infos);
+
+            recipe_title_infos.appendChild(recipe_name);
+            recipe_title_infos.appendChild(clock);
+
+            recipe_card_container.appendChild(howTo);
+            howTo.appendChild(recipe_ingredients);
+            howTo.appendChild(recipe_ingredients_steps);
+
+            recipe_ingredients_steps.appendChild(recipe_steps);
+
+            resultOfSearch.appendChild(recipe_card_container);
+        })
+        return
+    }
+
+    async displayCategorieDropdown(ingredients, appareils, ustensiles) {
+        // await this.check()
+        console.log("-------------------------------------------------")
+        console.log("les ingrédients, appareils et ustensiles des dropdown")
+
+        const filteredRecipes = []
+
+        // dropdown pour y mettre la liste des ingredients, appareils, ustensiles 
+        let dropdown__ingredients__list = document.querySelector(".dropdown__ingredients__list")
+        let dropdown__appareils__list = document.querySelector(".dropdown__appareils__list")
+        let dropdown__ustensiles__list = document.querySelector(".dropdown__ustensiles__list")
+
+        //je mets les éléments dans le dropdown de leur catégorie
+        //est-ce que ça peut devenir une méthode dispatche les tag par catégorie? j'ai essayé mais pas réussi
+        for (let ingredient of ingredients) {
+            let liIngredient = document.createElement("li");
+            liIngredient.setAttribute("class", "dropdown__ingredients__list-item");
+            liIngredient.innerHTML = ingredient;
+            dropdown__ingredients__list.appendChild(liIngredient)
+            liIngredient.addEventListener('click', function() {
+                let tag_ingredient = document.querySelector(".tag_ingredient")
+                let li_tag_ingredient = document.createElement("li");
+                li_tag_ingredient.innerHTML = this.innerHTML
+                tag_ingredient.appendChild(li_tag_ingredient)
+                dropdown__ingredients__list.removeChild(this)
+                filteredRecipes.push(this.innerHTML)
+                console.log(filteredRecipes)
+            })
+        }
+        for (let appareil of appareils) {
+            let liAppareil = document.createElement("li");
+            liAppareil.setAttribute("class", "dropdown__appareils__list-item");
+            liAppareil.innerHTML = appareil;
+            dropdown__appareils__list.appendChild(liAppareil)
+            liAppareil.addEventListener('click', function() {
+                let tag_appareil = document.querySelector(".tag_appareil")
+                let li_tag_appareil = document.createElement("li");
+                li_tag_appareil.innerHTML = this.innerHTML
+                tag_appareil.appendChild(li_tag_appareil)
+                dropdown__appareils__list.removeChild(this)
+                filteredRecipes.push(this.innerHTML)
+                console.log(filteredRecipes)
+            })
+        }
+        for (let ustensile of ustensiles) {
+            let liUstensil = document.createElement("li");
+            liUstensil.setAttribute("class", "dropdown__ustensiles__list-item");
+            liUstensil.innerHTML = ustensile;
+            dropdown__ustensiles__list.appendChild(liUstensil)
+            liUstensil.addEventListener('click', function() {
+                let tag_ustensile = document.querySelector(".tag_ustensile")
+                let li_tag_ustensile = document.createElement("li");
+                li_tag_ustensile.innerHTML = this.innerHTML,
+                    tag_ustensile.appendChild(li_tag_ustensile)
+                    //if (tag_ustensile.includes(this))
+                dropdown__ustensiles__list.removeChild(this)
+                filteredRecipes.push(this.innerHTML)
+                console.log(filteredRecipes)
+            })
+        }
+        console.log(filteredRecipes)
+
+
+        //console.log("recherche par tag ingrédient pomme")
+        //  const filteredRecipes = this.filterByTag(this.data, { ingredient: 'Pomme' })
+
+        //  console.log("recherche par tag ustensil couteau dans les résultats de précédente recherche pomme")
+        //  console.log("ajout de tag!!!")
+        //  console.log(this.filterByTag(filteredRecipes, { ustensil: 'couteau' }))
+        /* document.body.addEventListener('click', function closeDropdown(e) {
+             console.log("demande de fermer")
+             let dropdownIsOpen = document.querySelector(".dropdown_open")
+             console.log(dropdownIsOpen)
+             if (dropdownIsOpen) {
+                 console.log("fermer")
+                 dropdown__ingredients__list.classList.toggle("dropdown_open", false)
+             }
+             return
+         })*/
+
+        dropdown__ingredients_box.addEventListener('click', function() { // dropdown__${catégorie}_box
+            dropdown__ingredients__list.classList.add("dropdown_open")
+            dropdown__appareils__list.classList.remove("dropdown_open")
+            dropdown__ustensiles__list.classList.remove("dropdown_open")
+            inputSearchIngredient.setAttribute("placeholder", "Rechercher un ingrédient");
+            console.log("ingrédients ouvert")
+                // this.style.display='none'
+            return
+        })
+
+        dropdown__appareils_box.addEventListener('click', function() { // dropdown__${catégorie}_box
+            dropdown__appareils__list.classList.add("dropdown_open")
+            dropdown__ingredients__list.classList.remove("dropdown_open")
+            inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+            dropdown__ustensiles__list.classList.remove("dropdown_open")
+            console.log("appareils ouvert")
+                // this.style.display='none'
+            return
+        })
+
+        dropdown__ustensiles_box.addEventListener('click', function() { // dropdown__${catégorie}_box
+            dropdown__ustensiles__list.classList.add("dropdown_open")
+            dropdown__ingredients__list.classList.remove("dropdown_open")
+            inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+            dropdown__appareils__list.classList.remove("dropdown_open")
+            console.log(this)
+            console.log("ustensiles ouvert")
+                // this.style.display='none'
+            return
+        })
+
+        // supprimer les tags du bandeau au click dessus
+        // puis le remettre dans sa catégorie
+
+
+    }
+
+    getIngredientsFromRecipes(recipes, search) { //ok //pour le dropdown ingrédients
+        console.log("-------------------------------------------------")
+        console.log("étape liste des ingredient")
+        const ingredients = [];
+        // créee un tableau avec tous les ingrédients de toutes les recettes, doublons supprimés
+        for (let recipe of recipes) {
+            for (let ingredient of recipe.ingredients) {
+                const ingredientName = ingredient.ingredient;
+                ingredients.indexOf(ingredientName) === -1 ? ingredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ "doublon");
+            }
+        }
+        //this.displayCategorieIngredients(ingredients)
+
+        console.log("-------------------------------------------------")
+        console.log("étape liste des appareils")
+        const appareils = [];
+        // créee un tableau avec tous les appareils de toutes les recettes, doublons supprimés
+        for (let recipe of recipes) {
+            const applianceName = firstLetterOfAstringToUpperCase(recipe.appliance);
+            appareils.indexOf(applianceName) === -1 ? appareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'ingredient`+*/ "doublon");
+        }
+        // console.log(appareils)
+        //this.displayCategorieIngredients(appareils)
+
+        //this.displayDropdownAppareils(appareils)
+        console.log("-------------------------------------------------")
+        console.log("étape liste des ustensiles")
+        const ustensiles = [];
+        // créee un tableau avec tous les ustensiles de toutes les recettes, doublons supprimés
+        for (let recipe of recipes) {
+            for (let ustensil of recipe.ustensils) {
+                const ustensilName = firstLetterOfAstringToUpperCase(ustensil);
+                ustensiles.indexOf(ustensilName) === -1 ? ustensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ingredient`+*/ "doublon");
+            }
+        }
+        // console.log(ustensiles)
+        this.displayCategorieDropdown(ingredients, appareils, ustensiles)
+            //this.displayDropdownUstensiles(ustensiles)
+        return ingredients, appareils, ustensiles
+    }
+
+    getTagValuesFromRecipes(recipes, tags) {
+        console.log("-------------------------------------------------")
+        console.log("étape get values from recipes")
+        console.log(recipes)
+        console.log(tags)
         return []
     }
 
-    filterByTags(recipes,tags){
-        return recipes;
-    }
-
-    displayRecipes(recipes){}
-
-    filterByTag(recipes,tag) {
+    filterByTags(recipes, tags) { // depuis les dropdown?
         console.log("-------------------------------------------------")
-        console.log("etape filtre par tag")
+        console.log("étape filtre par tous les tags")
+        console.log(recipes)
+        console.log(tags)
 
         const key = Object.keys(tag)[0]
         const value = Object.values(tag)[0]
 
-
-        /*
-                for (let recipe of recipes) {
-                    console.log(recipe)
-                    console.log(recipe.ingredients.name)
-                    console.log(this)
-                    for (let ingredients of recipe) {
-                        console.log(ingredients)
-                            // console.log(ingredients.ingredient)
+        //https://ultimatecourses.com/blog/array-find-javascript
+        const resultOfMultiTagsSearch = recipes.find(function(recipe) {
+            switch (key) {
+                case 'ingredient':
+                    for (let ingredient of recipe.ingredients) {
+                        const ingredientName = ingredient.ingredient;
+                        if (ingredientName === value) {
+                            return true
+                        }
                     }
-                }*/
+                    // return false
 
-    return recipes.filter(function(recipe) {
-         
-        switch(key){
-            case 'ingredient':
-                for (let ingredient of recipe.ingredients) {
-                    const ingredientName = ingredient.ingredient;
-                    if (ingredientName === value){
-                        return true 
-                    }
-                }
-                return false
-
-            case 'appliance':
-                return recipe.appliance === value;
-            case 'ustensil':
-                return recipe.ustensils.includes(value)
-            default:
-                return true;
-
-        }
-    })
-
-
-
+                case 'appliance':
+                    return recipe.appliance === value;
+                case 'ustensil':
+                    return recipe.ustensils.includes(value)
+                default:
+                    return true;
+            }
+        })
+        console.log(resultOfMultiTagsSearch)
+        return recipes;
     }
 
-    filterByText(recipes,search) {
-        console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
-        console.log("etape filtre dans tout")
-        return recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe,search))
+    filterByTag(recipes, tag) {
+        console.log("-------------------------------------------------")
+        console.log("étape filtre par tag")
+        const key = Object.keys(tag)[0]
+        const value = Object.values(tag)[0]
+        return recipes.filter(function(recipe) {
+                switch (key) {
+                    case 'ingredient':
+                        for (let ingredient of recipe.ingredients) {
+                            const ingredientName = ingredient.ingredient;
+                            if (ingredientName === value) {
+                                return true
+                            }
+                        }
+                        return false
+                    case 'appliance':
+                        return recipe.appliance === value;
+                    case 'ustensil':
+                        return recipe.ustensils.includes(value)
+                    default:
+                        return true;
+                }
+            })
+            ///// ATTENTION, si y'a des doublons de recette already exists? /////////
+            //// grâce à l'id? ///////
+    }
 
+    filterByText(recipes, search) {
+        //console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
+        console.log("-------------------------------------------------")
+        console.log("étape filtre dans tout")
+        return recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+    }
+
+
+    async addTagOnHTML(recipes, ingredients, appareils, ustensiles) {
+        await this.fetchData()
+        await this.getAppareilsFromRecipes(recipes, search)
+        await this.getUstensilesFromRecipes(recipes, search)
+        console.log("-------------------------------------------------")
+        console.log("étape ajout tags dans les dropdown")
+            // pour mettre un listener sur les tags  du dropdown
+        let dropdown__ingredients__listItem = document.querySelectorAll(".dropdown__ingredients__list-item") //tags ingrédients
+            //tags appareils
+            //tags ustensiles
+
+        console.log(dropdown__ingredients__listItem)
+
+        for (let i = 0; i < dropdown__ingredients__listItem.length; i++) {
+            dropdown__ingredients__listItem[i].addEventListener("click", function() {
+                dropdown__ingredients__listItem[i].classList.toggle("red");
+            });
+        }
     }
 };
 
 const recipes2 = new Recipes2()
 const test = async() => {
-
     recipes2.check();
-    
-    //recipes2.filterByText(search, recipeName, tag); // ça ça marche! ça renvoie un array des résultat
 }
-
-
 test()
 
 
 
 
-/*
-const fromScratch = async() => {
-    recipes = await fetchRecipes()
-    recipes
-        .filter(recipe => recipe.description.toLowerCase().startsWith(search))
-        .map(recipe => (
-            console.log(recipe.name)
-        )).join('')
-    recipes
-        .filter(recipe => recipe.name.toLowerCase().includes(search))
-        .map(recipe => (
-            console.log(recipe.name) // ok, renvoie le titre des recette qui contiennent la recherche saisie
-        )).join('')
-    recipes
-        .filter(recipe => recipe.appliance.toLowerCase().includes(search))
-        .map(recipe => (
-            console.log(recipe.name)
-        )).join('')
-
-    // pour les ustensils et les ingredients je dois faire une boucle sur getIngredientsFromRecipes
-
-    /* recipes
-         .filter(recipe => eachIngredient.toLowerCase().includes(search))
-         .map(recipe => (
-             console.log(eachIngredient)
-         )).join('')*/
-/*
-}
-
-
-
-
-*/
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////// pour la recherche par ingrédients, bonjour la galère //////////////////////////////////////
-
-/*recipes.forEach(function(recipe) {
-         ingredients = recipe.ingredients
-         recipeName = lowerCaseWithoutAccent(recipe.name)
-             // console.log(ingredients) //tableau des ingredients de chaque recette //ok!
-             //console.log("dans la recette de " + recipeName)
-         ingredients.forEach(function(ingredient) {
-             tag = lowerCaseWithoutAccent(ingredient.ingredient)
-                 //console.log("il y a " + tag) // chaque ingredient de TOUTES les recettes //ok!
-             console.log(tag)
-                 //  return tag
-             if (tag.includes(search)) {
-                 //  console.log("coucou" + recipeName + "---------------------------------")
-             }
-             //return recipe, tag
-         })
-     })*/
-
-
-
-/*
-              const truc = recipes.map(obj => obj.name)
-                  // console.log(truc) // un tableau avec tous les noms des recettes
-
-              const truc2 = recipes.map(obj => obj.ingredients)
-                  // console.log(truc2) // un tableau avec les tableaux d'ingrédients de toutes les recettes
-      */
-
-//return tag
-//}
-//returnIngredientsOneByOne()
-
-//console.log(`je recupere tous les ingredients des recettes`)
-/* recipes.forEach(function(recipe) {
-         ingredients = recipe.ingredients
-         recipeName = lowerCaseWithoutAccent(recipe.name)
-             // console.log(ingredients) //tableau des ingredients de chaque recette //ok!
-             //console.log("dans la recette de " + recipeName)
-         ingredients.forEach(function(ingredient) {
-             tag = lowerCaseWithoutAccent(ingredient.ingredient)
-                 //console.log("il y a " + tag) // chaque ingredient de TOUTES les recettes //ok!
-                 //console.log(tag)
-             return tag
-         })
-         console.log("hello")
-         return recipe, tag
-
-     })
-     //return recipeName, tag; // ok retourne bien les noms de recettes et les ingredients*/
-
-
-/*Array.prototype.forEach.call(recipes, recipe => {
-    recipeName = lowerCaseWithoutAccent(recipe.name)
-    Array.prototype.forEach.call(recipe.ingredients, ingredient => {
-        tag = lowerCaseWithoutAccent(ingredient.ingredient)
-            //console.log(recipeName, tag)
-        console.log(tag)
-        if (tag.includes(search)) {
-            console.log(search + " trouvé " + tag)
-        }
-        return recipeName, tag
-    })
-    return recipeName, tag
-})*/
-
-
-
-
-
-
-
-
-
-
-
-
-//resultOfSearch.innerHTML = meals[0]
 
 // ressources utiles //
 // https://www.youtube.com/watch?v=ETx4QF_k8so //fromscratch API cuisine
@@ -407,72 +483,4 @@ const fromScratch = async() => {
 
 // https://www.youtube.com/watch?v=LteNqj4DFD8 devsage recursif
 // https://www.youtube.com/watch?v=lMBVwYrmFZQ ++++!!!!
-
-
-
-
-/*for (let recipe of recipes) {
-      for (let i of recipe.ingredients) {
-          if (i.ingredient == search) {
-              console.log("j'ai trouvé!")
-
-              resultOfSearch.innerHTML = ``
-              affichage =
-                  `<div class="recipe_card_container">
-              <img src="/images/${recipe.photo}" class="recipe_img">
-              <div class="recipe_title_infos">
-                  <h2 class="recipe_name">${recipe.name}</h2>
-                  <img class="clock" src="/images/clock-regular.svg">
-                  <p>${recipe.time} min</p>
-              </div>
-              <div class="howTo">
-                  <div class="recipe_ingredients">`;
-              // boucle pour récupérer un à un les ingrédients vu que le nombre varie d'une recette à l'autre
-              recipe.ingredients.forEach((e) => {
-                  affichage +=
-                      `<p class="recipe_title_ingredient" >${e.ingredient}</p>`;
-              });
-              affichage += `</div>
-                  <div class="recipe_ingredients_steps">`;
-              affichage += `<p class="recipe_steps">${recipe.description}</p> `;
-              affichage += `</div></div></div>`;
-              resultOfSearch.innerHTML = affichage
-          } else {
-              affichage =
-                  `<p class="noRecipe">Aucune recette ne correspond à votre recherche, retentez votre chance avec un autre mot!</p>`
-              resultOfSearch.innerHTML = affichage
-          }
-      }
-  }*/
-
-
-
-
-
-/*
-  filterByText(search, recipeName, tag) {
-    console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
-    console.log("etape filtre dans tout")
-        //this.getIngredientsFromRecipes(search)
-        //fromScratch() // ok pour l'algo version filter et loop
-        /*switch (search) {
-            case recipes // le nom de la recette commence
-            .filter(recipe => recipe.description.toLowerCase().includes(search))
-            .map(recipe => (
-                console.log(recipe.name)
-            )).join(''):
-                return
-            case recipes // le nom de la recette contient
-            .filter(recipe => recipeName.includes(search))
-            .map(recipe => (
-                console.log(recipe.name) // ok, renvoie le titre des recette qui contiennent la recherche saisie
-            )).join(''):
-                console.log(recipe.name)
-                return recipe.name
-            case (recipes.ingredients.forEach((ingredient) => console.log(ingredient.includes(search)))):
-                console.log(recipes.name)
-                console.log(ingredient)
-                return recipe.name
-            default:
-                console.log("aucune recette ne correspond")
-        }*/
+// https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Errors/is_not_iterable

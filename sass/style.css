@@ -1,10 +1,10 @@
 .dropdown {
-  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   border-radius: 5px;
   height: auto;
+  z-index: 100;
 }
 
 .dropdown div {
@@ -35,7 +35,7 @@
   justify-content: space-between;
   align-items: center;
   height: 55px;
-  min-width: 170px;
+  min-width: 200px;
   margin: 0 10px;
   border-radius: 5px;
   color: white;
@@ -46,7 +46,9 @@
   border: none;
   color: white;
   font-size: 1rem;
-  width: 115px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .dropdown__ingredients_box-input::-moz-placeholder {
@@ -71,17 +73,17 @@
 
 .dropdown__ingredients_box-input:focus::-moz-placeholder {
   color: white;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .dropdown__ingredients_box-input:focus:-ms-input-placeholder {
   color: white;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .dropdown__ingredients_box-input:focus::placeholder {
   color: white;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .dropdown__ingredients_box-arrow {
@@ -103,7 +105,6 @@
   padding-left: 15px;
   margin-top: -10px;
   line-height: 2.5rem;
-  visibility: hidden;
   width: 0;
   height: 0;
   transition: all 0.5s;
@@ -119,14 +120,16 @@
 }
 
 .dropdown__ingredients__list-item {
-  font-size: 1.5rem;
+  font-size: 1rem;
   list-style-type: none;
-  width: 33%;
-  max-height: 50px;
+  cursor: pointer;
+  line-height: 1.2em;
+  width: 100%;
+  padding: 5px 0;
   cursor: pointer;
 }
 
-.dropdown__appareil {
+.dropdown__appareils {
   background-color: green;
   border-radius: 5px;
   color: white;
@@ -141,15 +144,15 @@
   overflow: hidden;
 }
 
-.dropdown__appareil:hover {
+.dropdown__appareils:hover {
   box-shadow: 1px 1px 12px #555;
 }
 
-.dropdown__appareil:focus {
+.dropdown__appareils:focus {
   box-shadow: 1px 1px 12px #555;
 }
 
-.dropdown__appareil_box {
+.dropdown__appareils_box {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -161,7 +164,7 @@
   color: white;
 }
 
-.dropdown__appareil_box-input {
+.dropdown__appareils_box-input {
   background-color: green;
   border: none;
   color: white;
@@ -169,50 +172,50 @@
   width: 115px;
 }
 
-.dropdown__appareil_box-input::-moz-placeholder {
+.dropdown__appareils_box-input::-moz-placeholder {
   color: white;
   font-size: 1rem;
 }
 
-.dropdown__appareil_box-input:-ms-input-placeholder {
+.dropdown__appareils_box-input:-ms-input-placeholder {
   color: white;
   font-size: 1rem;
 }
 
-.dropdown__appareil_box-input::placeholder {
+.dropdown__appareils_box-input::placeholder {
   color: white;
   font-size: 1rem;
 }
 
-.dropdown__appareil_box-input:focus {
+.dropdown__appareils_box-input:focus {
   outline-style: none;
   width: 250px;
 }
 
-.dropdown__appareil_box-input:focus::-moz-placeholder {
+.dropdown__appareils_box-input:focus::-moz-placeholder {
   color: white;
 }
 
-.dropdown__appareil_box-input:focus:-ms-input-placeholder {
+.dropdown__appareils_box-input:focus:-ms-input-placeholder {
   color: white;
 }
 
-.dropdown__appareil_box-input:focus::placeholder {
+.dropdown__appareils_box-input:focus::placeholder {
   color: white;
 }
 
-.dropdown__appareil_box-arrow {
+.dropdown__appareils_box-arrow {
   font-size: 1.7rem;
   margin-right: 10px;
   transform: rotate(-180deg);
   transition: all 0.5s ease;
 }
 
-.dropdown__appareil_box-arrow:hover {
+.dropdown__appareils_box-arrow:hover {
   transform: rotate(0deg);
 }
 
-.dropdown__appareil__list {
+.dropdown__appareils__list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -220,18 +223,23 @@
   padding-left: 15px;
   margin-top: -10px;
   line-height: 2.5rem;
-  visibility: hidden;
   width: 0;
   height: 0;
   transition: all 0.5s;
   z-index: 100;
+  position: absolute;
+  top: 77px;
+  overflow: hidden;
+  background-color: green;
 }
 
-.dropdown__appareil__list-item {
-  font-size: 1.5rem;
+.dropdown__appareils__list-item {
+  font-size: 1rem;
   list-style-type: none;
-  width: 33%;
-  max-height: 50px;
+  cursor: pointer;
+  line-height: 1.2em;
+  width: 100%;
+  padding: 5px 0;
   cursor: pointer;
 }
 
@@ -326,24 +334,109 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  background-color: red;
-  color: white;
   padding-left: 15px;
   margin-top: -10px;
   line-height: 2.5rem;
-  transition: all 0.5s ease;
-  visibility: hidden;
   width: 0;
   height: 0;
+  transition: all 0.5s;
   z-index: 100;
+  position: absolute;
+  top: 77px;
+  overflow: hidden;
+  background-color: red;
 }
 
 .dropdown__ustensiles__list-item {
+  font-size: 1rem;
+  list-style-type: none;
+  cursor: pointer;
+  line-height: 1.2em;
+  width: 100%;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.ingredientInDropdown {
   font-size: 1.5rem;
   list-style-type: none;
   width: 33%;
   max-height: 50px;
   cursor: pointer;
+}
+
+.dropdown_open {
+  display: block;
+  width: 650px;
+  height: auto;
+  position: unset;
+  -moz-column-count: 3;
+       column-count: 3;
+}
+
+section .tag {
+  width: auto;
+}
+
+.tag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  width: auto;
+  margin: auto;
+}
+
+.tag ul {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.tag ul li {
+  margin: 0 10px 10px 0;
+}
+
+.tag_ingredient li {
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 7px 15px;
+  border-radius: 5px;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+}
+
+.tag_appareil li {
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 7px 15px;
+  border-radius: 5px;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+}
+
+.tag_ustensile li {
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 7px 15px;
+  border-radius: 5px;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdown__ingredients__list-item:hover {
+  background-color: grey;
 }
 
 .recipe_card_container {
@@ -438,6 +531,8 @@ body {
 
 main {
   margin: 70px;
+  display: flex;
+  flex-direction: column;
 }
 
 #headerInfos-img {
