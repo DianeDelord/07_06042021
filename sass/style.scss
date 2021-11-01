@@ -13,6 +13,8 @@ body {
 
 main {
     margin: 70px;
+    display: flex;
+    flex-direction: column;
 }
 
 #headerInfos-img {
