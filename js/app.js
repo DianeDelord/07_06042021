@@ -38,12 +38,12 @@ function firstLetterOfAstringToUpperCase(string) {
     return string.replace(/^./, string[0].toUpperCase());
 }
 
-inputSearch.addEventListener('keydown', (e) => {
-    if (e.target.value.length >= 3) {
-        console.log("recherche input ingrédient")
-        test()
-        return search = lowerCaseWithoutAccent(e.target.value);
-    }
+inputSearch.addEventListener('keyup', (e) => {
+    //if (e.target.value.length >= 3) {
+    console.log("recherche input ingrédient")
+    recipes2.filterByText(recipes, tags)
+    return search = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
+    // }
 })
 
 inputSearchIngredient.addEventListener('keydown', (e) => {
@@ -296,7 +296,7 @@ class Recipes2 {
         return tagsToFilterRecipes, ingredients, appareils, ustensiles
     }
 
-    getIngredientsFromRecipes(recipes) { //ok //pour le dropdown ingrédients
+    getIngredientsFromRecipes(recipes) { //ok 
         console.log("-------------------------------------------------")
         console.log("étape liste des ingredient")
         const ingredients = [];
