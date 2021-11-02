@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     width: auto;
-    height: auto;
+    height: max-content;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     position: relative;
@@ -103,7 +103,6 @@
 .dropdown__ingredients__list-item {
     font-size: 1rem;
     list-style-type: none;
-    cursor: pointer;
     line-height: 1.2em;
     width: 100%;
     padding: 5px 0;

@@ -89,13 +89,12 @@ class Recipes2 {
         console.log("étape check")
         await this.fetchData()
         this.displayRecipes(recipes) // affiche les recettes
-        this.getIngredientsFromRecipes(recipes, search) // récupère les ingrédients des recettes affichées
+            // récupère les ingrédients des recettes affichées
             //  this.getAppareilsFromRecipes(recipes, search) // récupère les appareils des recettes affichées
             //  this.getUstensilesFromRecipes(recipes, search) // récupère les ustensils des recettes affichées
             //this.displayCategorieIngredients(ingredients, appareils, ustensiles)
 
         // this.addTagOnHTML(ingredients, appareils, ustensiles)
-
 
         //  console.log(this.getIngredientsFromRecipes(this.data)) //ok
         ///  console.log(this.filterByText(this.data, 'coco')) //ok
@@ -193,7 +192,8 @@ class Recipes2 {
 
             resultOfSearch.appendChild(recipe_card_container);
         })
-        return
+        this.getIngredientsFromRecipes(recipes, search)
+        return recipes
     }
 
     async displayCategorieDropdown(ingredients, appareils, ustensiles) {
@@ -201,7 +201,7 @@ class Recipes2 {
         console.log("-------------------------------------------------")
         console.log("les ingrédients, appareils et ustensiles des dropdown")
 
-        const filteredRecipes = []
+        const tagsToFilterRecipes = []
 
         // dropdown pour y mettre la liste des ingredients, appareils, ustensiles 
         let dropdown__ingredients__list = document.querySelector(".dropdown__ingredients__list")
@@ -221,8 +221,8 @@ class Recipes2 {
                 li_tag_ingredient.innerHTML = this.innerHTML
                 tag_ingredient.appendChild(li_tag_ingredient)
                 dropdown__ingredients__list.removeChild(this)
-                filteredRecipes.push(this.innerHTML)
-                console.log(filteredRecipes)
+                tagsToFilterRecipes.push(this.innerHTML)
+                console.log(tagsToFilterRecipes)
             })
         }
         for (let appareil of appareils) {
@@ -236,8 +236,8 @@ class Recipes2 {
                 li_tag_appareil.innerHTML = this.innerHTML
                 tag_appareil.appendChild(li_tag_appareil)
                 dropdown__appareils__list.removeChild(this)
-                filteredRecipes.push(this.innerHTML)
-                console.log(filteredRecipes)
+                tagsToFilterRecipes.push(this.innerHTML)
+                console.log(tagsToFilterRecipes)
             })
         }
         for (let ustensile of ustensiles) {
@@ -252,29 +252,10 @@ class Recipes2 {
                     tag_ustensile.appendChild(li_tag_ustensile)
                     //if (tag_ustensile.includes(this))
                 dropdown__ustensiles__list.removeChild(this)
-                filteredRecipes.push(this.innerHTML)
-                console.log(filteredRecipes)
+                tagsToFilterRecipes.push(this.innerHTML)
+                console.log(tagsToFilterRecipes)
             })
         }
-        console.log(filteredRecipes)
-
-
-        //console.log("recherche par tag ingrédient pomme")
-        //  const filteredRecipes = this.filterByTag(this.data, { ingredient: 'Pomme' })
-
-        //  console.log("recherche par tag ustensil couteau dans les résultats de précédente recherche pomme")
-        //  console.log("ajout de tag!!!")
-        //  console.log(this.filterByTag(filteredRecipes, { ustensil: 'couteau' }))
-        /* document.body.addEventListener('click', function closeDropdown(e) {
-             console.log("demande de fermer")
-             let dropdownIsOpen = document.querySelector(".dropdown_open")
-             console.log(dropdownIsOpen)
-             if (dropdownIsOpen) {
-                 console.log("fermer")
-                 dropdown__ingredients__list.classList.toggle("dropdown_open", false)
-             }
-             return
-         })*/
 
         dropdown__ingredients_box.addEventListener('click', function() { // dropdown__${catégorie}_box
             dropdown__ingredients__list.classList.add("dropdown_open")
@@ -289,7 +270,8 @@ class Recipes2 {
         dropdown__appareils_box.addEventListener('click', function() { // dropdown__${catégorie}_box
             dropdown__appareils__list.classList.add("dropdown_open")
             dropdown__ingredients__list.classList.remove("dropdown_open")
-            inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+                //inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+            inputSearchIngredient.setAttribute("placeholder", "Ingrédients");
             dropdown__ustensiles__list.classList.remove("dropdown_open")
             console.log("appareils ouvert")
                 // this.style.display='none'
@@ -299,7 +281,8 @@ class Recipes2 {
         dropdown__ustensiles_box.addEventListener('click', function() { // dropdown__${catégorie}_box
             dropdown__ustensiles__list.classList.add("dropdown_open")
             dropdown__ingredients__list.classList.remove("dropdown_open")
-            inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+                // inputSearchIngredient.removeAttribute("placeholder", "Rechercher un ingrédient");
+            inputSearchIngredient.setAttribute("placeholder", "Ingrédients");
             dropdown__appareils__list.classList.remove("dropdown_open")
             console.log(this)
             console.log("ustensiles ouvert")
@@ -309,11 +292,11 @@ class Recipes2 {
 
         // supprimer les tags du bandeau au click dessus
         // puis le remettre dans sa catégorie
-
-
+        this.getTagValuesFromRecipes(recipes, tagsToFilterRecipes, ingredients, appareils, ustensiles)
+        return tagsToFilterRecipes, ingredients, appareils, ustensiles
     }
 
-    getIngredientsFromRecipes(recipes, search) { //ok //pour le dropdown ingrédients
+    getIngredientsFromRecipes(recipes) { //ok //pour le dropdown ingrédients
         console.log("-------------------------------------------------")
         console.log("étape liste des ingredient")
         const ingredients = [];
@@ -324,7 +307,8 @@ class Recipes2 {
                 ingredients.indexOf(ingredientName) === -1 ? ingredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ "doublon");
             }
         }
-        //this.displayCategorieIngredients(ingredients)
+        console.log(ingredients)
+            //this.displayCategorieIngredients(ingredients)
 
         console.log("-------------------------------------------------")
         console.log("étape liste des appareils")
@@ -334,8 +318,8 @@ class Recipes2 {
             const applianceName = firstLetterOfAstringToUpperCase(recipe.appliance);
             appareils.indexOf(applianceName) === -1 ? appareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'ingredient`+*/ "doublon");
         }
-        // console.log(appareils)
-        //this.displayCategorieIngredients(appareils)
+        console.log(appareils)
+            //this.displayCategorieIngredients(appareils)
 
         //this.displayDropdownAppareils(appareils)
         console.log("-------------------------------------------------")
@@ -348,28 +332,38 @@ class Recipes2 {
                 ustensiles.indexOf(ustensilName) === -1 ? ustensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ingredient`+*/ "doublon");
             }
         }
-        // console.log(ustensiles)
+        console.log(ustensiles)
         this.displayCategorieDropdown(ingredients, appareils, ustensiles)
             //this.displayDropdownUstensiles(ustensiles)
-        return ingredients, appareils, ustensiles
+        return recipes, ingredients, appareils, ustensiles
     }
 
-    getTagValuesFromRecipes(recipes, tags) {
+    getTagValuesFromRecipes(recipes, tagsToFilterRecipes, ingredients, appareils, ustensiles) {
         console.log("-------------------------------------------------")
         console.log("étape get values from recipes")
-        console.log(recipes)
-        console.log(tags)
+        console.log("recherche par tag ingrédient pomme")
+        const tagValuesFromRecipes = []
+
+        /*const filteredRecipes = this.filterByTags(this.data, { ingredient: 'Pomme' })
+
+        console.log("recherche par tag ustensil couteau dans les résultats de précédente recherche pomme")
+            // console.log("ajout de tag!!!")
+            // console.log(this.filterByTag(filteredRecipes, { ustensil: 'couteau' }))
+            // console.log(filteredRecipes)
+
+        // console.log("recherche multiple")
+        const PommeCouteau = this.filterByTags(recipes, { ustensil: 'couteau', ingredient: 'pomme' })
+        console.log(PommeCouteau)*/
         return []
     }
 
-    filterByTags(recipes, tags) { // depuis les dropdown?
+    filterByTags(recipes, ingredients, appareils, ustensiles) { // depuis les dropdown?
         console.log("-------------------------------------------------")
         console.log("étape filtre par tous les tags")
-        console.log(recipes)
-        console.log(tags)
-
-        const key = Object.keys(tag)[0]
-        const value = Object.values(tag)[0]
+        console.log(ingredients, appareils, ustensiles)
+            // console.log(Object.keys(tag)[0])
+            // const key = Object.keys(tag)[0]
+            // const value = Object.values(tag)[0]
 
         //https://ultimatecourses.com/blog/array-find-javascript
         const resultOfMultiTagsSearch = recipes.find(function(recipe) {
@@ -430,7 +424,7 @@ class Recipes2 {
     }
 
 
-    async addTagOnHTML(recipes, ingredients, appareils, ustensiles) {
+    /*async addTagOnHTML(recipes, ingredients, appareils, ustensiles) {
         await this.fetchData()
         await this.getAppareilsFromRecipes(recipes, search)
         await this.getUstensilesFromRecipes(recipes, search)
@@ -448,7 +442,7 @@ class Recipes2 {
                 dropdown__ingredients__listItem[i].classList.toggle("red");
             });
         }
-    }
+    }*/
 };
 
 const recipes2 = new Recipes2()
