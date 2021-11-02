@@ -41,7 +41,7 @@ function firstLetterOfAstringToUpperCase(string) {
 inputSearch.addEventListener('keyup', (e) => {
     //if (e.target.value.length >= 3) {
     console.log("recherche input ingrédient")
-    recipes2.filterByText(recipes, tags)
+    recipes2.filterByText(recipes, tags, search)
     return search = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
     // }
 })
@@ -416,10 +416,13 @@ class Recipes2 {
             //// grâce à l'id? ///////
     }
 
-    filterByText(recipes, search) {
+    filterByText(recipes, tags, search) {
         //console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
         console.log("-------------------------------------------------")
         console.log("étape filtre dans tout")
+            // const resultOfSearchByText = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+            //console.log(resultOfSearchByText)
+        this.displayRecipes(recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search)))
         return recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
     }
 
