@@ -3,6 +3,8 @@ let inputSearch = document.getElementById("inputSearch")
     //let searchIngredientInput = document.getElementById("searchIngredientInput")
 
 let inputSearchIngredient = document.querySelector(".dropdown__ingredients_box-input")
+let inputSearchAppareil = document.querySelector(".dropdown__appareils_box-input")
+let inputSearchUstensile = document.querySelector(".dropdown__ustensiles_box-input")
 let dropdown__ingredients_box = document.querySelector(".dropdown__ingredients_box")
 let dropdown__appareils_box = document.querySelector(".dropdown__appareils_box")
 let dropdown__ustensiles_box = document.querySelector(".dropdown__ustensiles_box")
@@ -11,26 +13,14 @@ let search = ""
 let searchIngredient = ""
 let tags
 let tag
-let tagIngredient
-let tagAppareil
-let tagUstensils
 
 let ingredients
 let appareils
 let ustensiles
-let recipeName
-let ingredientsArray = []
 let recipes
-let ingredientName
-let recetteCree
 
 const multiTagsSearch = []
 let compteurTags = 0
-
-
-let resultOfSearchingInDescAndNameAndIngr
-let resultOfSearchingInIngr = []
-let initial
 
 // fonction pour passer une string en minuscule sans accent
 function lowerCaseWithoutAccent(string) {
@@ -51,15 +41,37 @@ inputSearch.addEventListener('keyup', (e) => {
     }
 })
 
+//input recherche du dropdown ingrédients
 inputSearchIngredient.addEventListener('keyup', (e) => {
     if (e.target.value.length > 2) {
         console.log("recherche input ingrédient")
         search = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
-        //recipes2.filterByTag(recipes, tag, { ingredient: search })
-        recipes2.getTagValuesFromRecipes(recipes, search)
-        return recipes, tag, search // = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
+        tag = 'ingrédient'
+        recipes2.getTagValuesFromRecipes(recipes, tag, search)
+        return recipes, tag, search
     }
-    // this.filterByTag(this.data, { ingredient: searchIngredient })
+})
+
+//input recherche du dropdown appareils
+inputSearchAppareil.addEventListener('keyup', (e) => {
+    if (e.target.value.length > 2) {
+        console.log("recherche input appareil")
+        search = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
+        tag = 'appareil'
+        recipes2.getTagValuesFromRecipes(recipes, tag, search)
+        return recipes, tag, search
+    }
+})
+
+//input recherche du dropdown ustensiles
+inputSearchUstensile.addEventListener('keyup', (e) => {
+    if (e.target.value.length > 2) {
+        console.log("recherche input ustensile")
+        search = lowerCaseWithoutAccent(e.target.value).length > 2 ? lowerCaseWithoutAccent(e.target.value) : false;
+        tag = 'ustensile'
+        recipes2.getTagValuesFromRecipes(recipes, tag, search)
+        return recipes, tag, search
+    }
 })
 
 function hasInRecipe(recipe, search) {
@@ -312,7 +324,7 @@ class Recipes2 {
             // supprimer le tag du bandeau au click dessus
             // puis le remettre dans sa catégorie
 
-        document.addEventListener("click", function(e) {
+        /*document.addEventListener("click", function(e) {
             console.log("clic dans le document")
             console.log(e.target)
                 //  if (dropdown__ingredients__list.classList.contains('dropdown_open')) {
@@ -332,7 +344,7 @@ class Recipes2 {
                 dropdown__ingredients__list.classList.add("dropdown_open")
 
             }
-        })
+        })*/
 
         return search, tagsToFilterRecipes, ingredients, appareils, ustensiles
     }
@@ -381,10 +393,11 @@ class Recipes2 {
         return recipes, ingredients, appareils, ustensiles
     }
 
-    getTagValuesFromRecipes(recipes, search) {
+    getTagValuesFromRecipes(recipes, tag, search) {
         console.log("-------------------------------------------------")
         console.log("étape get tag values from recipes")
         console.log(search)
+        console.log(tag)
         const matchingRecipes = []
 
         // créee un tableau avec tous les tags ingrédients des recettes (oui y'a les doublons)
@@ -392,28 +405,76 @@ class Recipes2 {
         const tagsAppareils = [];
         const tagsUstensiles = [];
 
-        for (let recipe of recipes) {
-            for (let ingredient of recipe.ingredients) {
-                const ingredientName = lowerCaseWithoutAccent(ingredient.ingredient);
-                if (ingredientName.includes(search)) {
-                    tagsIngredients.indexOf(ingredientName) === -1 ? tagsIngredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ );
-                    matchingRecipes.indexOf(recipe) === -1 ? matchingRecipes.push(recipe) : console.log( /*`${recipe} est deja present dans ma liste d'ingredient`+*/ );
-                }
-            }
-            for (let recipe of matchingRecipes) {
-                // créee un tableau avec les appareils des recettes qui matchent, doublons supprimés
-                const applianceName = lowerCaseWithoutAccent(recipe.appliance);
-                tagsAppareils.indexOf(applianceName) === -1 ? tagsAppareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'ingredient`+*/ );
+        switch (tag) {
+            case 'ingrédient':
+                // cas recherche dans les ingrédients
+                for (let recipe of recipes) {
+                    for (let ingredient of recipe.ingredients) {
+                        const ingredientName = lowerCaseWithoutAccent(ingredient.ingredient);
+                        if (ingredientName.includes(search)) {
+                            tagsIngredients.indexOf(ingredientName) === -1 ? tagsIngredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ );
+                            matchingRecipes.indexOf(recipe) === -1 ? matchingRecipes.push(recipe) : console.log( /*`${recipe} est deja present dans ma liste d'ingredient`+*/ );
+                        }
+                    }
+                    for (let recipe of matchingRecipes) {
+                        // créee un tableau avec les appareils des recettes qui matchent, doublons supprimés
+                        const applianceName = lowerCaseWithoutAccent(recipe.appliance);
+                        tagsAppareils.indexOf(applianceName) === -1 ? tagsAppareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'appareils`+*/ );
 
-
-                // créee un tableau avec tous les ustensiles de toutes les recettes, doublons supprimés
-                for (let ustensil of recipe.ustensils) {
-                    const ustensilName = lowerCaseWithoutAccent(ustensil);
-                    tagsUstensiles.indexOf(ustensilName) === -1 ? tagsUstensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ingredient`+*/ );
+                        // créee un tableau avec tous les ustensiles des recettes qui matchent, doublons supprimés
+                        for (let ustensil of recipe.ustensils) {
+                            const ustensilName = lowerCaseWithoutAccent(ustensil);
+                            tagsUstensiles.indexOf(ustensilName) === -1 ? tagsUstensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ustensiles`+*/ );
+                        }
+                    }
                 }
-            }
+                break;
+
+            case 'appareil':
+                // cas recherche dans les appareils
+                for (let recipe of recipes) {
+                    const applianceName = lowerCaseWithoutAccent(recipe.appliance);
+                    if (applianceName.includes(search)) {
+                        tagsAppareils.indexOf(applianceName) === -1 ? tagsAppareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'appareils`+*/ );
+                        matchingRecipes.indexOf(recipe) === -1 ? matchingRecipes.push(recipe) : console.log( /*`${recipe} est deja present dans ma liste d'ingredient`+*/ );
+                    }
+                    for (let recipe of matchingRecipes) {
+                        for (let ingredient of recipe.ingredients) {
+                            const ingredientName = lowerCaseWithoutAccent(ingredient.ingredient);
+                            tagsIngredients.indexOf(ingredientName) === -1 ? tagsIngredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ );
+                        }
+                        for (let ustensil of recipe.ustensils) {
+                            const ustensilName = lowerCaseWithoutAccent(ustensil);
+                            tagsUstensiles.indexOf(ustensilName) === -1 ? tagsUstensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ustensiles`+*/ );
+                            tagsUstensiles.indexOf(ustensilName) === -1 ? tagsUstensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ustensiles`+*/ );
+                        }
+                    }
+                }
+                break;
+
+            case 'ustensile':
+                // cas recherche dans les ustensiles
+                for (let recipe of recipes) {
+                    for (let ustensil of recipe.ustensils) {
+                        const ustensilName = lowerCaseWithoutAccent(ustensil);
+                        if (ustensilName.includes(search)) {
+                            tagsUstensiles.indexOf(ustensilName) === -1 ? tagsUstensiles.push(ustensilName) : console.log( /*`${ustensilName} est deja present dans ma liste d'ustensiles`+*/ );
+                            matchingRecipes.indexOf(recipe) === -1 ? matchingRecipes.push(recipe) : console.log( /*`${recipe} est deja present dans ma liste d'ingredient`+*/ );
+                        }
+                    }
+                    for (let recipe of matchingRecipes) {
+                        // créee un tableau avec les appareils des recettes qui matchent, doublons supprimés
+                        const applianceName = lowerCaseWithoutAccent(recipe.appliance);
+                        tagsAppareils.indexOf(applianceName) === -1 ? tagsAppareils.push(applianceName) : console.log( /*`${applianceName} est deja present dans ma liste d'appareils`+*/ );
+
+                        for (let ingredient of recipe.ingredients) {
+                            const ingredientName = lowerCaseWithoutAccent(ingredient.ingredient);
+                            tagsIngredients.indexOf(ingredientName) === -1 ? tagsIngredients.push(ingredientName) : console.log( /*`${ingredientName} est deja present dans ma liste d'ingredient`+*/ );
+                        }
+                    }
+                }
+                break;
         }
-        //return tagsAppareils, tagsIngredients, tagsUstensiles
 
         console.log("tags ingrédients " + tagsIngredients)
         console.log("tags ustensiles " + tagsUstensiles)
@@ -511,27 +572,6 @@ class Recipes2 {
         this.getIngredientsFromRecipes(recipes)
         return recipes
     }
-
-
-    /*async addTagOnHTML(recipes, ingredients, appareils, ustensiles) {
-        await this.fetchData()
-        await this.getAppareilsFromRecipes(recipes, search)
-        await this.getUstensilesFromRecipes(recipes, search)
-        console.log("-------------------------------------------------")
-        console.log("étape ajout tags dans les dropdown")
-            // pour mettre un listener sur les tags  du dropdown
-        let dropdown__ingredients__listItem = document.querySelectorAll(".dropdown__ingredients__list-item") //tags ingrédients
-            //tags appareils
-            //tags ustensiles
-
-        console.log(dropdown__ingredients__listItem)
-
-        for (let i = 0; i < dropdown__ingredients__listItem.length; i++) {
-            dropdown__ingredients__listItem[i].addEventListener("click", function() {
-                dropdown__ingredients__listItem[i].classList.toggle("red");
-            });
-        }
-    }*/
 };
 
 const recipes2 = new Recipes2()
@@ -541,6 +581,25 @@ const test = async() => {
 test()
 
 
+/*async addTagOnHTML(recipes, ingredients, appareils, ustensiles) {
+    await this.fetchData()
+    await this.getAppareilsFromRecipes(recipes, search)
+    await this.getUstensilesFromRecipes(recipes, search)
+    console.log("-------------------------------------------------")
+    console.log("étape ajout tags dans les dropdown")
+        // pour mettre un listener sur les tags  du dropdown
+    let dropdown__ingredients__listItem = document.querySelectorAll(".dropdown__ingredients__list-item") //tags ingrédients
+        //tags appareils
+        //tags ustensiles
+
+    console.log(dropdown__ingredients__listItem)
+
+    for (let i = 0; i < dropdown__ingredients__listItem.length; i++) {
+        dropdown__ingredients__listItem[i].addEventListener("click", function() {
+            dropdown__ingredients__listItem[i].classList.toggle("red");
+        });
+    }
+}*/
 
 
 
