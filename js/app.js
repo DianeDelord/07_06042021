@@ -257,7 +257,9 @@ class Recipes2 {
                 tagsToFilterRecipes.push(this.innerHTML)
                 if (tagsToFilterRecipes.length > 0) { // lancer le filtrage dès qu'on clicke sur un tag
                     tag = 'ingrédient'
-                    recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                        //  recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                    search = tagsToFilterRecipes
+                    this.getTagValuesFromRecipes(recipes, tag, tagsToFilterRecipes)
                 }
             })
         }
@@ -275,7 +277,9 @@ class Recipes2 {
                 tagsToFilterRecipes.push(this.innerHTML)
                 if (tagsToFilterRecipes.length > 0) { // lancer le filtrage dès qu'on clicke sur un tag
                     tag = 'appareil'
-                    recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                        // recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                    search = tagsToFilterRecipes
+                    this.getTagValuesFromRecipes(recipes, tag, tagsToFilterRecipes)
                 }
             })
         }
@@ -293,7 +297,9 @@ class Recipes2 {
                 tagsToFilterRecipes.push(this.innerHTML)
                 if (tagsToFilterRecipes.length > 0) { // lancer le filtrage dès qu'on clicke sur un tag
                     tag = 'ustensile'
-                    recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                        //  recipes2.filterByTags(recipes, tagsToFilterRecipes, tag, ingredients, appareils, ustensiles)
+                    search = tagsToFilterRecipes
+                    this.getTagValuesFromRecipes(recipes, tag, tagsToFilterRecipes)
                 }
             })
         }
@@ -335,8 +341,9 @@ class Recipes2 {
             return
         })
         console.log(tagsToFilterRecipes)
-            // supprimer le tag du bandeau au click dessus
-            // puis le remettre dans sa catégorie
+
+        // supprimer le tag du bandeau au click dessus
+        // puis le remettre dans sa catégorie
 
         /*document.addEventListener("click", function(e) {
             console.log("clic dans le document")
@@ -410,6 +417,7 @@ class Recipes2 {
     getTagValuesFromRecipes(recipes, tag, search) {
         console.log("-------------------------------------------------")
         console.log("étape get tag values from recipes")
+        console.log("filtre depuis les input catégorie dans les dropdown")
         console.log(search)
         console.log(tag)
         const matchingRecipes = []
