@@ -19,7 +19,11 @@ let appareils
 let ustensiles
 let recipes
 
-
+//fonction pour stoper la propagation
+function cliqueAndStop(e) {
+    // console.log('Paragraphe cliqué - Arrêt de la propagation');
+    e.stopPropagation();
+}
 // créee un tableau avec tous les tags ingrédients des recettes 
 const tagsIngredients = [];
 const tagsAppareils = [];
@@ -277,22 +281,19 @@ class Recipes2 {
         let dropdown__appareils = document.querySelector(".dropdown__appareils")
         let dropdown__ustensiles = document.querySelector(".dropdown__ustensiles")
 
-        dropdown__ingredients.addEventListener('click', function(event) {
+        dropdown__ingredients.addEventListener('click', function() {
             dropdown__ingredients__list.classList.toggle("dropdown_open")
             console.log(dropdown__ingredients__list.classList.value)
-            event.stopPropagation();
         })
 
-        dropdown__appareils.addEventListener('click', function(event) {
+        dropdown__appareils.addEventListener('click', function() {
             dropdown__appareils__list.classList.toggle("dropdown_open")
             console.log(dropdown__appareils__list.classList.value)
-            event.stopPropagation();
         })
 
-        dropdown__ustensiles.addEventListener('click', function(event) {
+        dropdown__ustensiles.addEventListener('click', function() {
             dropdown__ustensiles__list.classList.toggle("dropdown_open")
             console.log(dropdown__ustensiles__list.classList.value)
-            event.stopPropagation();
         })
         this.getTagValuesFromRecipes(recipes, ingredients, appareils, ustensiles)
 
@@ -431,16 +432,25 @@ class Recipes2 {
                     // cas où le tag est un ingrédient 
                     let tag_ingredient = document.querySelector(".tag_ingredient")
                     tag_ingredient.innerHTML += `<li>${value}</li>`
+                    tag_ingredient.addEventListener("click", function(e) {
+                        e.stopPropagation()
+                    })
                     return
                 case 'appareil':
                     // cas où le tag est un appareil
                     let tag_appareil = document.querySelector(".tag_appareil")
                     tag_appareil.innerHTML += `<li>${value}</li>`
+                    tag_appareil.addEventListener("click", function(e) {
+                        e.stopPropagation()
+                    })
                     return
                 case 'ustensile':
                     // cas où le tag est un ustensile
                     let tag_ustensile = document.querySelector(".tag_ustensile")
                     tag_ustensile.innerHTML += `<li>${value}</li>`
+                    tag_ustensile.addEventListener("click", function(e) {
+                        e.stopPropagation()
+                    })
                     return
             }
         }
