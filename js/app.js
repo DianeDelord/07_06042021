@@ -127,7 +127,7 @@ class Recipes2 {
         // console.log("étape check")
         await this.fetchData()
         
-        this.displayRecipes()
+        this.displayRecipes(this.data)
         this.setDropDown()
 
             // this.displayRecipes(recipes) // affiche les recettes
@@ -269,7 +269,7 @@ class Recipes2 {
     }
 
     filterCategoriDropddown(categorieName,search){
-        
+
     }
 
 
