@@ -390,3 +390,8 @@ section .tag {
 .dropdown__ingredients__list-item:hover {
     background-color: grey;
 }
+
+.hidden {
+    //visibility: hidden;
+    display: none;
+}

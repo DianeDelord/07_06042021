@@ -439,6 +439,10 @@ section .tag {
   background-color: grey;
 }
 
+.hidden {
+  display: none;
+}
+
 #resultOfSearch .recipe_card_container {
   margin-right: 20px;
 }
