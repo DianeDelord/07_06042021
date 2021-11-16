@@ -71,58 +71,69 @@ inputSearch.addEventListener('keyup', (e) => {
 
 
 //input recherche du dropdown ingrédients
-inputSearchIngredient.addEventListener('input', (e) => {
+inputSearchIngredient.addEventListener('keyup', (e) => {
     search = ""
     console.log("-------------------------------------------------")
     console.log("recherche input ingrédient")
+        // if (e.target.value.length > 1) {
     search = lowerCaseWithoutAccent(e.target.value)
         // recipes2.filteredtags = ({ 'ingredient': `${search}` })
     console.log(search)
     let dropdown__ingredients__list_item = document.querySelectorAll(".dropdown__ingredients__list-item")
-        // let dropdown__appareils__list = document.querySelector(".dropdown__appareils__list")
-        // let dropdown__ustensiles__list = document.querySelector(".dropdown__ustensiles__list")
     for (let item of dropdown__ingredients__list_item) {
-        let ing = lowerCaseWithoutAccent(item.innerHTML)
-        if ((ing.startsWith(search)) || (ing.includes(search))) {} else {
-            //item.classList.toggle("hidden")
-            item.remove()
+        itemInner = lowerCaseWithoutAccent(item.innerHTML)
+        item.classList.remove("hidden")
+        if ((itemInner.startsWith(search)) || (itemInner.includes(search))) {
+            console.log(itemInner + " ok")
+        } else {
+            // console.log(item)
+            item.classList.add("hidden")
         }
+
     }
 })
 
 //input recherche du dropdown appareils
-inputSearchAppareil.addEventListener('input', (e) => {
+inputSearchAppareil.addEventListener('keyup', (e) => {
     search = ""
     console.log("-------------------------------------------------")
     console.log("recherche input appareil")
     search = lowerCaseWithoutAccent(e.target.value)
-        // recipes2.filteredtags = ({ 'ingredient': `${search}` })
+        // recipes2.filteredtags = ({ 'appareil': `${search}` })
     console.log(search)
     let dropdown__appareils__list_item = document.querySelectorAll(".dropdown__appareils__list-item")
     for (let item of dropdown__appareils__list_item) {
-        let ing = lowerCaseWithoutAccent(item.innerHTML)
-        if ((ing.startsWith(search)) || (ing.includes(search))) {} else {
-            //item.classList.toggle("hidden")
-            item.remove()
+        itemInner = lowerCaseWithoutAccent(item.innerHTML)
+        item.classList.remove("hidden")
+        if ((itemInner.startsWith(search)) || (itemInner.includes(search))) {
+            console.log(itemInner + " ok")
+        } else {
+            // console.log(item)
+            item.classList.add("hidden")
         }
+
     }
 })
 
 //input recherche du dropdown ustensiles
-inputSearchUstensile.addEventListener('input', (e) => {
+inputSearchUstensile.addEventListener('keyup', (e) => {
     search = ""
     console.log("-------------------------------------------------")
     console.log("recherche input ustensile")
     search = lowerCaseWithoutAccent(e.target.value)
-        // recipes2.filteredtags = ({ 'ingredient': `${search}` })
+        // recipes2.filteredtags = ({ 'ustensile': `${search}` })
     console.log(search)
     let dropdown__ustensiles__list_item = document.querySelectorAll(".dropdown__ustensiles__list-item")
     for (let item of dropdown__ustensiles__list_item) {
-        let ing = lowerCaseWithoutAccent(item.innerHTML)
-        if ((ing.startsWith(search)) || (ing.includes(search))) {} else {
-            //item.classList.toggle("hidden")
-            item.remove()
+        itemInner = lowerCaseWithoutAccent(item.innerHTML)
+        item.classList.remove("hidden")
+        if ((itemInner.startsWith(search)) || (itemInner.includes(search))) {
+            console.log(itemInner + " ok")
+        } else {
+            // console.log(item)
+            item.classList.add("hidden")
         }
+
     }
 })
 
