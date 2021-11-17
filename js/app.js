@@ -55,8 +55,8 @@ inputSearch.addEventListener('keyup', (e) => {
     if (e.target.value.length > 2) {
         console.log("recherche input ")
         search = lowerCaseWithoutAccent(e.target.value)
-        recipes2.filteredtags = ({ '': `${search}` })
-        console.log(recipes2.filteredtags)
+            //recipes2.filteredtags = ({ '': `${search}` })
+        console.log(search)
             //if (recipes2.filteredRecipes.length > 0) {
             //recipes = recipes2.filteredRecipes
             //}
@@ -64,7 +64,7 @@ inputSearch.addEventListener('keyup', (e) => {
             //tagToAdd.push(search)
             // return recipes2.displayRecipes(recipes2.filterByText( /*recipes2.filterByTags(*/ recipes, /* recipes2.filteredtags),*/ search))
             //recipes2.filteredtags.push(search)
-        return recipes2.displayRecipes(recipes2.filterByText(recipes, search))
+        return recipes2.displayRecipes(recipes2.filterByText(recipes, search)), search
             //return recipes2.displayRecipes(recipes2.filterByText(recipes, search))
     }
 })
@@ -423,6 +423,8 @@ class Recipes2 {
         // console.log(key) //catégorie
         //  console.log(value) //item
         let filteredtags = recipes2.filteredtags
+        console.log(filteredtags)
+        console.log(this.filteredRecipes)
             // vérifier les doublons pour l'ajouter au tableau des tags qui filtrent les résultats
         const foundTag = filteredtags.find((currentTag) => {
             console.log(Object.keys(currentTag)[0])
@@ -450,7 +452,12 @@ class Recipes2 {
         console.log("étape supprime tag dans le bandeau de tags clickés")
         const key = Object.keys(tag)[0];
         const value = Object.values(tag)[0];
-
+        console.log(search)
+        if (search) {
+            this.filteredRecipes = this.filterByText(recipes, search)
+        } else {
+            this.filteredRecipes = []
+        }
         const newTagslist = this.filteredtags.filter((currentTag) => {
             if (Object.keys(currentTag)[0] === key && Object.values(currentTag)[0] === value) {
                 //console.log("hein? quoi?")
@@ -463,7 +470,7 @@ class Recipes2 {
         this.filteredtags = newTagslist // mettre à jour les tags qui servent de filtre après delete les tags non voulus
         console.log(this.filteredtags)
             // filteredtags = newTagslist
-        this.filteredRecipes = []
+
         this.filterByTags(this.data, this.filteredtags)
     }
 
