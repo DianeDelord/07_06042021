@@ -453,12 +453,18 @@ class Recipes2 {
 
         const newTagslist = this.filteredtags.filter((currentTag) => {
             if (Object.keys(currentTag)[0] === key && Object.values(currentTag)[0] === value) {
+                //console.log("hein? quoi?")
                 return false
             } else {
+                // console.log("qui que où?")
                 return true
             }
         })
-        this.filteredtags = newTagslist
+        this.filteredtags = newTagslist // mettre à jour les tags qui servent de filtre après delete les tags non voulus
+        console.log(this.filteredtags)
+            // filteredtags = newTagslist
+        this.filteredRecipes = []
+        this.filterByTags(this.data, this.filteredtags)
     }
 
     displayTags() { // semble ok // ok étape 8
@@ -524,26 +530,26 @@ class Recipes2 {
                         const ingredientName = lowerCaseWithoutAccent(ingredient.ingredient);
                         // console.log(ingredientName)
                         if ((ingredientName == value) || (ingredientName.includes(value))) {
-                            console.log("trouvé ")
+                            // console.log("trouvé ")
                             return true
                         }
                     }
                     return false
                 case 'appareil':
-                    console.log("c'est un appareil, les recettes qui l'utilisent")
+                    // console.log("c'est un appareil, les recettes qui l'utilisent")
                     recipe.appliance = lowerCaseWithoutAccent(recipe.appliance)
                     if ((recipe.appliance == value) || (recipe.appliance) == filteredtag.toString() || (recipe.appliance).includes(value)) {
-                        console.log("trouvé ")
+                        // console.log("trouvé ")
                         return true
                     }
                     return false;
                 case 'ustensile':
-                    console.log("c'est un ustensile, les recettes qui en ont besoin")
+                    // console.log("c'est un ustensile, les recettes qui en ont besoin")
 
                     for (let ustensil of recipe.ustensils) {
                         ustensil = lowerCaseWithoutAccent(ustensil)
                         if ((ustensil == value) || (ustensil.includes(filteredtag.toString())) || (ustensil.includes(value))) {
-                            console.log("trouvé ")
+                            // console.log("trouvé ")
                             return true
                         }
                         return false
