@@ -572,9 +572,17 @@ class Recipes2 {
         console.log("-------------------------------------------------")
         console.log("étape filtre dans la description, le nom ou l'un des ingredients")
         console.log(search)
-        recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
-        recipes2.filteredRecipes = recipes
-        return recipes2.filteredRecipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+        console.log(recipes2.filteredRecipes)
+        if (recipes2.filteredRecipes.length > 0) {
+            recipes = recipes2.filteredRecipes
+            recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+            recipes2.filteredRecipes = recipes
+            return recipes2.filteredRecipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+        } else {
+            recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+            recipes2.filteredRecipes = recipes
+            return recipes2.filteredRecipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+        }
     }
 }
 
@@ -584,6 +592,7 @@ const test = async() => {
     recipes2.check();
 }
 test()
+
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
