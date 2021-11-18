@@ -53,7 +53,7 @@ function capitalizeFirstLetter(string) {
 inputSearch.addEventListener('keyup', (e) => {
     search = ""
     if (e.target.value.length > 2) {
-        console.log("recherche input ")
+      
         search = lowerCaseWithoutAccent(e.target.value)
             //recipes2.filteredtags = ({ '': `${search}` })
         console.log(search)
@@ -64,9 +64,13 @@ inputSearch.addEventListener('keyup', (e) => {
             //tagToAdd.push(search)
             // return recipes2.displayRecipes(recipes2.filterByText( /*recipes2.filterByTags(*/ recipes, /* recipes2.filteredtags),*/ search))
             //recipes2.filteredtags.push(search)
-        return recipes2.displayRecipes(recipes2.filterByText(recipes, search)), search
+       
             //return recipes2.displayRecipes(recipes2.filterByText(recipes, search))
     }
+    
+    recipes2.search = search;
+    console.log('we start a display', recipes2.filteredtags, recipes2.search)
+    return recipes2.displayRecipes(recipes2.filterByText(recipes2.filterByTags(recipes2.data,recipes2.filteredtags),recipes2.search)),search
 })
 
 
@@ -155,6 +159,7 @@ class Recipes2 {
         this.data = []
         this.filteredRecipes = []
         this.filteredtags = []
+        this.search = ''
     }
 
     async fetchData() { //ok
@@ -496,7 +501,7 @@ class Recipes2 {
             li_tag.addEventListener('click', () => {
                 this.deleteTag(tag);
                 this.displayTags();
-                this.displayRecipes(this.filterByTags(this.data, this.filteredtags))
+                this.displayRecipes(this.filterByTags(this.filterByText(this.data,this.search), this.filteredtags))
             });
             tag_container.appendChild(li_tag);
         }
@@ -506,14 +511,14 @@ class Recipes2 {
         console.log("-------------------------------------------------")
         console.log("étape filtre au click sur plusieurs tags")
             //console.log(recipes)
+        let newFilteredRecipes = recipes 
         filteredtags.forEach(tag => {
             console.log(tag)
-                // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
-            const newFilteredRecipes = recipes2.filterByTag(recipes, tag) //             const newFilteredRecipes = recipes2.filterByTag(this.filteredRecipes, tag)
-            this.filteredRecipes = newFilteredRecipes;
-            console.log(newFilteredRecipes) // tableau des recettes après filtre du tableau des tags à filtrer
+            // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
+            newFilteredRecipes = this.filterByTag(newFilteredRecipes, tag) //  
+           console.log(newFilteredRecipes) // tableau des recettes après filtre du tableau des tags à filtrer
         })
-        return recipes2.filteredRecipes;
+        return newFilteredRecipes;
     }
 
     filterByTag(recipes, filteredtag) {
@@ -572,17 +577,10 @@ class Recipes2 {
         console.log("-------------------------------------------------")
         console.log("étape filtre dans la description, le nom ou l'un des ingredients")
         console.log(search)
-        console.log(recipes2.filteredRecipes)
-        if (recipes2.filteredRecipes.length > 0) {
-            recipes = recipes2.filteredRecipes
-            recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
-            recipes2.filteredRecipes = recipes
-            return recipes2.filteredRecipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
-        } else {
-            recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
-            recipes2.filteredRecipes = recipes
-            return recipes2.filteredRecipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
-        }
+
+        recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
+        recipes2.filteredRecipes = recipes
+        return recipes //.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
     }
 }
 
