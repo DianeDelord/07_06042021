@@ -47,30 +47,24 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// console.log(capitalizeFirstLetter('foo')); // Foo
-
+////////////////////////////////////////////////////////////////////
 //recherche tapée dans l'input global
 inputSearch.addEventListener('keyup', (e) => {
     search = ""
     if (e.target.value.length > 2) {
-      
         search = lowerCaseWithoutAccent(e.target.value)
-            //recipes2.filteredtags = ({ '': `${search}` })
+        recipes2.search = search;
         console.log(search)
-            //if (recipes2.filteredRecipes.length > 0) {
-            //recipes = recipes2.filteredRecipes
-            //}
-            //let tagToAdd = recipes2.filterByTags()
-            //tagToAdd.push(search)
-            // return recipes2.displayRecipes(recipes2.filterByText( /*recipes2.filterByTags(*/ recipes, /* recipes2.filteredtags),*/ search))
-            //recipes2.filteredtags.push(search)
-       
-            //return recipes2.displayRecipes(recipes2.filterByText(recipes, search))
+        return recipes2.displayRecipes(recipes2.filterByText(recipes2.filterByTags(recipes2.data, recipes2.filteredtags), recipes2.search)), search
+    } else {
+        recipes2.search = ""
+        console.log("cas où y'a moins de 3 lettres saisies")
+        recipes2.filteredRecipes = []
+        return recipes2.displayRecipes(recipes2.filterByTags(recipes2.data, recipes2.filteredtags))
     }
-    
-    recipes2.search = search;
-    console.log('we start a display', recipes2.filteredtags, recipes2.search)
-    return recipes2.displayRecipes(recipes2.filterByText(recipes2.filterByTags(recipes2.data,recipes2.filteredtags),recipes2.search)),search
+    // console.log('we start a display', recipes2.filteredtags, recipes2.search)
+    // console.log(recipes2.filterByTags(recipes2.data, recipes2.filteredtags))
+    // return recipes2.displayRecipes(recipes2.filterByText(recipes2.filterByTags(recipes2.data, recipes2.filteredtags), recipes2.search)), search
 })
 
 
@@ -429,7 +423,7 @@ class Recipes2 {
         //  console.log(value) //item
         let filteredtags = recipes2.filteredtags
         console.log(filteredtags)
-        console.log(this.filteredRecipes)
+            // console.log(this.filteredRecipes)
             // vérifier les doublons pour l'ajouter au tableau des tags qui filtrent les résultats
         const foundTag = filteredtags.find((currentTag) => {
             console.log(Object.keys(currentTag)[0])
@@ -465,10 +459,8 @@ class Recipes2 {
         }
         const newTagslist = this.filteredtags.filter((currentTag) => {
             if (Object.keys(currentTag)[0] === key && Object.values(currentTag)[0] === value) {
-                //console.log("hein? quoi?")
                 return false
             } else {
-                // console.log("qui que où?")
                 return true
             }
         })
@@ -501,7 +493,7 @@ class Recipes2 {
             li_tag.addEventListener('click', () => {
                 this.deleteTag(tag);
                 this.displayTags();
-                this.displayRecipes(this.filterByTags(this.filterByText(this.data,this.search), this.filteredtags))
+                this.displayRecipes(this.filterByTags(this.filterByText(this.data, this.search), this.filteredtags))
             });
             tag_container.appendChild(li_tag);
         }
@@ -511,12 +503,12 @@ class Recipes2 {
         console.log("-------------------------------------------------")
         console.log("étape filtre au click sur plusieurs tags")
             //console.log(recipes)
-        let newFilteredRecipes = recipes 
+        let newFilteredRecipes = recipes
         filteredtags.forEach(tag => {
             console.log(tag)
-            // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
+                // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
             newFilteredRecipes = this.filterByTag(newFilteredRecipes, tag) //  
-           console.log(newFilteredRecipes) // tableau des recettes après filtre du tableau des tags à filtrer
+            console.log(newFilteredRecipes) // tableau des recettes après filtre du tableau des tags à filtrer
         })
         return newFilteredRecipes;
     }
@@ -529,7 +521,7 @@ class Recipes2 {
             //console.log(key) // catégorie
             // console.log(value) // item
         console.log(filteredtag) // tag
-        console.log(recipes2.filteredRecipes)
+        console.log("filteredeRecipes + " + recipes2.filteredRecipes)
         if (recipes2.filteredRecipes.length > 0) {
             recipes = recipes2.filteredRecipes
             console.log("un tri avait déjà eu lieu")
