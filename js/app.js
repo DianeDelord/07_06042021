@@ -567,8 +567,9 @@ class Recipes2 {
                             console.log(recipes)
                             return true
                         }
-                        return false
                     }
+                    return false
+
                 default:
                     return
             }
