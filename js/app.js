@@ -58,7 +58,7 @@ inputSearch.addEventListener('keyup', (e) => {
         return recipes2.displayRecipes(recipes2.filterByText(recipes2.filterByTags(recipes2.data, recipes2.filteredtags), recipes2.search)), search
     } else {
         recipes2.search = ""
-        console.log("cas où y'a moins de 3 lettres saisies")
+            // console.log("cas où y'a moins de 3 lettres saisies")
         recipes2.filteredRecipes = []
         return recipes2.displayRecipes(recipes2.filterByTags(recipes2.data, recipes2.filteredtags))
     }
@@ -389,6 +389,7 @@ class Recipes2 {
             dropdown__ingredients__list_item[i].addEventListener("click", (e) => {
                 tag = { 'ingredient': e.target.innerHTML }
                     // console.log(tag)
+                console.log("nouveau tag ingrédient")
                 recipes2.addtag(tag);
                 recipes2.displayTags()
                 return tag
@@ -398,6 +399,7 @@ class Recipes2 {
             dropdown__appareils__list_item[i].addEventListener("click", (e) => {
                 tag = { 'appareil': e.target.innerHTML }
                     // console.log(tag)
+                console.log("nouveau tag appareil")
                 recipes2.addtag(tag);
                 recipes2.displayTags()
                 return tag
@@ -407,6 +409,7 @@ class Recipes2 {
             dropdown__ustensiles__list_item[i].addEventListener("click", (e) => {
                 tag = { 'ustensile': e.target.innerHTML }
                     // console.log(tag)
+                console.log("nouveau tag ustensile")
                 recipes2.addtag(tag);
                 recipes2.displayTags()
                 return tag
@@ -438,10 +441,13 @@ class Recipes2 {
         // console.log(foundTag) // si ok, c'est que c'est un doublon donc on l'ajoute pas au tableau
         //  console.log(!foundTag)
         if (!foundTag) {
-            recipes2.filteredtags.push(tag)
+            console.log("** ------ AJOUT d'un tag")
+            recipes2.filteredtags.push(tag) // je push le tag 
             let filteredtags = recipes2.filteredtags
             console.log("tableau de tags pour filtrer les recettes")
             console.log(filteredtags)
+                // là il doit manquer un truc!
+
             return recipes2.displayRecipes(recipes2.filterByTags(recipes, filteredtags))
         }
     }
@@ -454,9 +460,9 @@ class Recipes2 {
         console.log(search)
         if (search) {
             this.filteredRecipes = this.filterByText(recipes, search)
-        } else {
-            this.filteredRecipes = []
-        }
+        } //else {
+        //  this.filteredRecipes = []
+        //}
         const newTagslist = this.filteredtags.filter((currentTag) => {
             if (Object.keys(currentTag)[0] === key && Object.values(currentTag)[0] === value) {
                 return false
@@ -467,7 +473,6 @@ class Recipes2 {
         this.filteredtags = newTagslist // mettre à jour les tags qui servent de filtre après delete les tags non voulus
         console.log(this.filteredtags)
             // filteredtags = newTagslist
-
         this.filterByTags(this.data, this.filteredtags)
     }
 
@@ -501,14 +506,16 @@ class Recipes2 {
 
     filterByTags(recipes, filteredtags) {
         console.log("-------------------------------------------------")
-        console.log("étape filtre au click sur plusieurs tags")
+        console.log("étape filtre sur plusieurs tags")
             //console.log(recipes)
         let newFilteredRecipes = recipes
         filteredtags.forEach(tag => {
-            console.log(tag)
-                // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
+            // console.log(tag)
+            // console.log(recipes) // c'est vide, c'est pour ça que ça marche pas
             newFilteredRecipes = this.filterByTag(newFilteredRecipes, tag) //  
+            console.log(" nouveau tableau de recettes en résultat")
             console.log(newFilteredRecipes) // tableau des recettes après filtre du tableau des tags à filtrer
+            this.filteredRecipes = newFilteredRecipes
         })
         return newFilteredRecipes;
     }
@@ -521,11 +528,12 @@ class Recipes2 {
             //console.log(key) // catégorie
             // console.log(value) // item
         console.log(filteredtag) // tag
-        console.log("filteredeRecipes + " + recipes2.filteredRecipes)
+        console.log("filteredeRecipes = ")
         if (recipes2.filteredRecipes.length > 0) {
             recipes = recipes2.filteredRecipes
             console.log("un tri avait déjà eu lieu")
         }
+        console.log(recipes)
         return recipes.filter(function(recipe) {
             switch (key) {
                 case 'ingredient':
@@ -535,6 +543,7 @@ class Recipes2 {
                         // console.log(ingredientName)
                         if ((ingredientName == value) || (ingredientName.includes(value))) {
                             // console.log("trouvé ")
+                            console.log(recipes)
                             return true
                         }
                     }
@@ -544,6 +553,7 @@ class Recipes2 {
                     recipe.appliance = lowerCaseWithoutAccent(recipe.appliance)
                     if ((recipe.appliance == value) || (recipe.appliance) == filteredtag.toString() || (recipe.appliance).includes(value)) {
                         // console.log("trouvé ")
+                        console.log(recipes)
                         return true
                     }
                     return false;
@@ -554,6 +564,7 @@ class Recipes2 {
                         ustensil = lowerCaseWithoutAccent(ustensil)
                         if ((ustensil == value) || (ustensil.includes(filteredtag.toString())) || (ustensil.includes(value))) {
                             // console.log("trouvé ")
+                            console.log(recipes)
                             return true
                         }
                         return false
@@ -568,7 +579,7 @@ class Recipes2 {
         //console.log(`je filtre les recettes ayant "${search}" dans la description, le nom ou l'un des ingredients `)
         console.log("-------------------------------------------------")
         console.log("étape filtre dans la description, le nom ou l'un des ingredients")
-        console.log(search)
+            // console.log(search)
 
         recipes = recipes.filter(recipe => lowerCaseWithoutAccent(recipe.name).includes(search) || lowerCaseWithoutAccent(recipe.description).includes(search) || hasInRecipe(recipe, search))
         recipes2.filteredRecipes = recipes
