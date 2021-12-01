@@ -1,117 +1,399 @@
-nav {
-    margin: 15px;
+.dropdown {
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    @media all and (max-width: 769px) {
-        display: none;
-    }
-}
-
-nav>p {
-    margin-right: 15px;
-}
-
-nav>ul {
-    width: 140px;
-    margin: 0;
-    padding: 0;
-    //background-color: $primary-color;
     border-radius: 5px;
+    height: 80px;
+    //position: absolute; // pour passer devant les recettes affichées
+    //  top: 395px;
+    z-index: 100;
 }
 
-nav>ul::after {
-    content: "";
-    display: block;
-    clear: both;
+input[type="search" i] {
+    padding: 15px;
 }
 
-nav>ul>li {
-    float: left;
+.dropdown div {
+    margin-bottom: 10px;
+    height: max-content;
+}
+
+.dropdown__ingredients {
+    background-color: $primary-color;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    // max-height: 250px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
     position: relative;
+    overflow: hidden;
+    max-height: 250px;
+}
+
+.dropdown__ingredients:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ingredients_box {
     display: flex;
     flex-direction: row;
-}
-
-nav>ul>li a {
-    padding: 15px 20px;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    min-width: 200px;
+    margin: 0 10px;
+    border-radius: 5px;
     color: white;
 }
 
-#chevron {
+.dropdown__ingredients_box-input {
+    background-color: $primary-color;
+    border: none;
     color: white;
-    content: "";
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border-bottom-left-radius: 2px;
-    transform: rotate(0deg) translate(0%, 0%);
-    transform-origin: center center;
-    transition: transform ease-in-out 100ms;
-    position: absolute;
-    top: 15px;
-    left: 109px;
+    font-size: 1rem;
+    width: 260px;
 }
 
-nav>ul>li:hover a {
-    padding: 15px, 30px, 20px, 30px;
+.dropdown__ingredients_box-input::placeholder {
+    color: white;
+    font-size: 1rem;
 }
 
-nav li {
+.dropdown__ingredients_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__ingredients_box-input:focus::placeholder {
+    color: white;
+    font-size: 1rem;
+}
+
+.dropdown__ingredients_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.3s ease;
+}
+
+.dropdown__ingredients_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__ingredients__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    // visibility: hidden;
+    width: 0; // écrasé en js à l'ouverture
+    //height: 0; // écrasé en js à l'ouverture
+    transition: all 0.5s;
+    position: absolute; // écrasé en js à l'ouverture
+    top: 77px;
+    overflow: hidden;
+    background-color: $primary-color;
+    z-index: 100;
+}
+
+.dropdown__ingredients__list:hover {
+    //box-shadow: inherit;
+}
+
+.dropdown__ingredients__list-item {
+    font-size: 1rem;
     list-style-type: none;
+    line-height: 1.2em;
+    width: 100%;
+    padding: 5px 0;
+    cursor: pointer;
 }
 
-.submenu {
+.dropdown__appareils {
+    background-color: $secondary-color;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: auto;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.dropdown__appareils:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__appareils:focus {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__appareils_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 170px;
+    height: 55px;
+    margin: 0 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.dropdown__appareils_box-input {
+    background-color: $secondary-color;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 115px;
+}
+
+.dropdown__appareils_box-input::placeholder {
+    color: white;
+    font-size: 1rem;
+}
+
+.dropdown__appareils_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__appareils_box-input:focus::placeholder {
+    color: white;
+}
+
+.dropdown__appareils_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.5s ease;
+}
+
+.dropdown__appareils_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__appareils__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    //visibility: hidden;
+    width: 0;
+    height: 0;
+    transition: all 0.5s;
+    z-index: 100;
+    position: absolute; // écrasé en js à l'ouverture
+    top: 77px;
+    overflow: hidden;
+    background-color: $secondary-color;
+}
+
+.dropdown__appareils__list-item {
+    font-size: 1rem;
+    list-style-type: none;
+    cursor: pointer;
+    line-height: 1.2em;
+    width: 100%;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.dropdown__ustensiles {
+    background-color: $tertiary-color;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: auto;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.dropdown__ustensiles:hover {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ustensiles:focus {
+    box-shadow: 1px 1px 12px #555;
+}
+
+.dropdown__ustensiles_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 170px;
+    height: 55px;
+    margin: 0 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.dropdown__ustensiles_box-input {
+    background-color: $tertiary-color;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 125px;
+}
+
+.dropdown__ustensiles_box-input::placeholder {
+    color: white;
+    font-size: 1rem;
+}
+
+.dropdown__ustensiles_box-input:focus {
+    outline-style: none;
+    width: 250px;
+}
+
+.dropdown__ustensiles_box-input:focus::placeholder {
+    color: white;
+}
+
+.dropdown__ustensiles_box-arrow {
+    font-size: 1.7rem;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    transition: all 0.5s ease;
+}
+
+.dropdown__ustensiles_box-arrow:hover {
+    transform: rotate(0deg);
+}
+
+.dropdown__ustensiles__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    margin-top: -10px;
+    line-height: 2.5rem;
+    //visibility: hidden;
+    width: 0;
+    height: 0;
+    transition: all 0.5s;
+    z-index: 100;
+    position: absolute; // écrasé en js à l'ouverture
+    top: 77px;
+    overflow: hidden;
+    background-color: $tertiary-color;
+}
+
+.dropdown__ustensiles__list-item {
+    font-size: 1rem;
+    list-style-type: none;
+    cursor: pointer;
+    line-height: 1.2em;
+    width: 100%;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.ingredientInDropdown {
+    font-size: 1.5rem;
+    list-style-type: none;
+    width: 33%;
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.dropdown_open {
+    display: block;
+    width: 650px;
+    height: auto;
+    position: unset;
+    column-count: 3;
+    overflow-y: scroll;
+}
+
+//.dropdown_close {}
+/////// tags
+section .tag {
+    width: auto;
+}
+
+.tag {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: auto;
+    margin: auto;
+}
+
+.tag ul {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.tag ul li {
+    margin: 0 10px 10px 0;
+}
+
+.tag_ingredient li {
+    color: white;
+    width: fit-content;
+    padding: 7px 15px;
+    border-radius: 5px;
+    background-color: $primary-color;
+    //background-image: url(../images/times-circle-regular.svg);
+    //background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+.tag_appareil li {
+    color: white;
+    width: fit-content;
+    padding: 7px 15px;
+    border-radius: 5px;
+    background-color: $secondary-color;
+    //background-image: url(../images/times-circle-regular.svg);
+    //background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+.tag_ustensile li {
+    color: white;
+    width: fit-content;
+    padding: 7px 15px;
+    border-radius: 5px;
+    background-color: $tertiary-color;
+    //background-image: url(../images/times-circle-regular.svg);
+    //background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+// pour vérification
+.dropdown__ingredients__list-item:hover,
+.dropdown__appareils__list-item:hover,
+.dropdown__ustensiles__list-item:hover {
+    background-color: rgba(165, 165, 158, 0.5);
+    color: black;
+}
+
+.hidden {
+    //visibility: hidden;
     display: none;
 }
-
-nav a {
-    display: inline-block;
-    text-decoration: none;
-}
-
-nav li:hover .submenu {
-    display: inline-block;
-    position: absolute;
-    top: 100%;
-    left: 0px;
-    padding: 0px;
-    z-index: 1000;
-}
-
-nav li:hover #chevron {
-    transform: rotate(180deg) translate(0%, 0%);
-}
-
-.submenu li {
-    border-top: 1.5px solid white;
-    padding: 10px 0;
-}
-
-.submenu li a {
-    padding: 15px 30px;
-    color: white;
-    width: 80px;
-}
-
-.menu-html .submenu:hover {
-    background-color: green;
-}
-
-.menu-html .submenu {
-    background-color: blue;
-    border-radius: 0 0 5px 5px;
-}
-
-.submenu li:hover a {
-    color: white;
-    font-weight: bold;
-}
-
-.menu-html .submenu li:hover a {
-    background-color: rgb(210, 77, 60, 0.5);
-}
-
-//////////////////
-/// https://www.youtube.com/watch?v=cWrmoGwQ1iE

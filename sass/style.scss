@@ -1,6 +1,11 @@
 @import './utils/variables';
 @import './components/dropdown';
 @import './components/recipe_card';
+body {
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
 #headerInfos {
     display: none;
     margin: 15px;
@@ -8,6 +13,8 @@
 
 main {
     margin: 70px;
+    display: flex;
+    flex-direction: column;
 }
 
 #headerInfos-img {
@@ -27,11 +34,25 @@ main {
 #inputSearch {
     display: flex;
     width: 100%;
-    background-color: $second-color;
-    border-color: $second-color;
+    background-color: $grey;
     margin: 15px 0px;
+    height: 35px;
+    border-radius: 5px;
+    border-style: hidden;
+    padding: 0 10px;
 }
 
 #dropdown-menus {
     margin: 15px 0px;
+}
+
+#searchArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-search {
+    position: absolute;
+    right: 85px;
 }
